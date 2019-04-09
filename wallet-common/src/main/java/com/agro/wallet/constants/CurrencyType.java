@@ -1,4 +1,6 @@
 package com.agro.wallet.constants;
 
-public enum ErrorCode {
+public enum  CurrencyType {
+
+    INR
 }
