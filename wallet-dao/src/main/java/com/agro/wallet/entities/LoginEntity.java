@@ -11,7 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="login",indexes = {
@@ -20,6 +22,8 @@ import lombok.Builder;
     @Index(name="login_user_fk_idx",columnList= "user_id",unique=true)
 })
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginEntity extends AuditedEntity<Integer> {
 
     private static final long serialVersionUID = 1L;

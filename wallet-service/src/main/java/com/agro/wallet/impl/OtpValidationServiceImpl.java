@@ -56,6 +56,8 @@ public class OtpValidationServiceImpl implements OtpValidationService {
          if(storedOtp.equals(submitOtpInput.getOtp())){
 
             String userId=saveUserInDb(walletRegisterationInput);
+             tokenStore.remove(token);
+             userStore.remove(token);
 
              return SubmitOtpOutput.builder().message("Congratulations you are successfully "
                  + "registered please login with your mobile number and password").userId(userId)
@@ -71,13 +73,13 @@ public class OtpValidationServiceImpl implements OtpValidationService {
     private String saveUserInDb(WalletRegisterationInput walletRegisterationInput){
 
         AddressEntity addressEntity = AddressEntity.builder()
-            .addressLine1(walletRegisterationInput.getAddressLine())
-            .city(walletRegisterationInput.getCity())
-            .country(walletRegisterationInput.getCountry())
-            .state(walletRegisterationInput.getState())
-            .pincode(null!=walletRegisterationInput.getPincode()?walletRegisterationInput
-                .getPincode():null)
-            .addressId(commonUtils.generateUUID(walletRegisterationInput.getCountry()))
+            .addressLine1(walletRegisterationInput.getAddress().getAddressLine())
+            .city(walletRegisterationInput.getAddress().getCity())
+            .country(walletRegisterationInput.getAddress().getCountry())
+            .state(walletRegisterationInput.getAddress().getState())
+            .pincode(null!=walletRegisterationInput.getAddress().getPincode()?walletRegisterationInput
+                .getAddress().getPincode():null)
+            .addressId(commonUtils.generateUUID(walletRegisterationInput.getAddress().getCountry()))
             .build();
 
         AddressEntity savedEntity = addressEntityService.getDao().save(addressEntity);

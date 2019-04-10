@@ -49,9 +49,4 @@ public class AddressEntity extends AuditedEntity<Integer>{
     @Column(name = "state", nullable = false)
     private String state;
 
-
-
-
-
-
 }

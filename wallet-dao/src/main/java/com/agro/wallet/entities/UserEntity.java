@@ -11,17 +11,20 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="user")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class UserEntity extends AuditedEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
@@ -63,7 +66,7 @@ public class UserEntity extends AuditedEntity<Integer> {
     @Column(name="user_status",nullable = false)
     private UserStatus userStatus;
 
-    public Integer getId() {
+/*    public Integer getId() {
         return id;
     }
 
@@ -149,5 +152,5 @@ public class UserEntity extends AuditedEntity<Integer> {
 
     public void setUserStatus(UserStatus userStatus) {
         this.userStatus = userStatus;
-    }
+    }*/
 }

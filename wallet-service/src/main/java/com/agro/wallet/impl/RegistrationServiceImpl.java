@@ -42,7 +42,7 @@ public class RegistrationServiceImpl implements RegisterationService {
     private OtpUtil otpUtil;
 
 
-    @Value("${messageTemplate:your otp is}")
+    @Value("${messageTemplate:your otp for wallet registeration is: }")
     private String messageTemplate;
 
     @Autowired
@@ -81,6 +81,7 @@ public class RegistrationServiceImpl implements RegisterationService {
         registerUserInToken(JWT,otp,walletRegisterationInput);
 
         return WalletRegistrationOutput.builder().token(JWT).isSuccess(Boolean.TRUE).build();
+
     }
 
     @Override
@@ -95,11 +96,11 @@ public class RegistrationServiceImpl implements RegisterationService {
     private String generateOTP() {
         String numbers = "1234567890";
         Random random = new Random();
-        char[] otp = new char[4];
+        StringBuilder otp = new StringBuilder();
 
-        for(int i = 0; i< otp.length ; i++) {
-            otp[i] = numbers.charAt(random.nextInt(numbers.length()));
+        for(int i = 0; i< 4; i++) {
+            otp.append(numbers.charAt(random.nextInt(numbers.length())));
         }
-        return otp.toString();
+                return otp.toString() ;
     }
 }

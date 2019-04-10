@@ -2,15 +2,18 @@ package com.agro.wallet.request;
 
 import java.time.LocalDate;
 import java.util.Date;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class WalletRegisterationInput extends ApiRequest {
 
     @NotNull
@@ -24,25 +27,15 @@ public class WalletRegisterationInput extends ApiRequest {
     @Size(min = 10,max = 10)
     private String mobileNumber;
 
-    @NotNull
-    private String addressLine;
-
-    @NotNull
-    private String city;
-
-    @NotNull
-    private String country;
-
-    @NotNull
-    private String state;
-
-    private String pincode;
-
     @Email
     private String emailId;
 
     @NotNull
     private Date dob;
+
+    @NotNull
+    @Valid
+    private Address address;
 
     @Builder
     public WalletRegisterationInput(@NotNull String password,
@@ -50,16 +43,13 @@ public class WalletRegisterationInput extends ApiRequest {
         @Size(min = 10, max = 10) String mobileNumber,
         @NotNull String addressLine, @NotNull String city,
         @NotNull String country, String pincode,
-        @Email String emailId, @NotNull Date dob) {
+        @Email String emailId, @NotNull Date dob,@NotNull @Valid Address address) {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobileNumber = mobileNumber;
-        this.addressLine = addressLine;
-        this.city = city;
-        this.country = country;
-        this.pincode = pincode;
         this.emailId = emailId;
         this.dob = dob;
+        this.address=address;
     }
 }

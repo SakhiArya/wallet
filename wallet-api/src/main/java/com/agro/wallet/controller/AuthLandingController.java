@@ -1,9 +1,12 @@
 package com.agro.wallet.controller;
 
 
+import com.agro.wallet.apis.OtpValidationApi;
 import com.agro.wallet.apis.RegisterationApi;
 import com.agro.wallet.request.ResponseUtils;
+import com.agro.wallet.request.SubmitOtpInput;
 import com.agro.wallet.request.WalletRegisterationInput;
+import com.agro.wallet.response.SubmitOtpOutput;
 import com.agro.wallet.response.WalletApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +28,9 @@ public class AuthLandingController {
 
     @Autowired
     RegisterationApi registerationApi;
+
+    @Autowired
+    OtpValidationApi otpValidationApi;
 
 
 
@@ -49,11 +55,11 @@ public class AuthLandingController {
         @ApiResponse(code = 200, message = "Successful")})
     @RequestMapping(method = RequestMethod.POST, value = "/submitOtp")
 
-    public WalletApiResponse submitOtp(@Valid @RequestBody WalletRegisterationInput
+    public WalletApiResponse submitOtp(@Valid @RequestBody SubmitOtpInput
         registerationInput)
         throws Exception {
 
-        return ResponseUtils.successResponse(registerationApi.execute(registerationInput));
+        return ResponseUtils.successResponse(otpValidationApi.execute(registerationInput));
     }
 
 

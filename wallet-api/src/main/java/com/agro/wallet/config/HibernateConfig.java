@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.agro")
+@EnableJpaRepositories(basePackages = {"com.agro.wallet","com.agro"})
 @EnableJpaAuditing
 public class HibernateConfig {
 
@@ -35,7 +35,7 @@ public class HibernateConfig {
     private HikariDataSource hikariDataSource;
 
     public String[] getPackagesToScan() {
-        return new String[]{"com.ezetap.entities"};
+        return new String[]{"com.agro.wallet"};
     }
 
     @Bean(destroyMethod = "")

@@ -11,9 +11,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Table(name="transactions")
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TransactionEntity extends AuditedEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
