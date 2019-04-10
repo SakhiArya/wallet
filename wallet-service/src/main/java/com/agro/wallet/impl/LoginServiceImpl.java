@@ -4,10 +4,12 @@ import com.agro.wallet.LoginService;
 import com.agro.wallet.WalletException;
 import com.agro.wallet.constants.ErrorCode;
 import com.agro.wallet.entities.LoginEntity;
+import com.agro.wallet.entities.UserEntity;
 import com.agro.wallet.entities.WalletEntity;
 import com.agro.wallet.request.LoginInput;
 import com.agro.wallet.response.LoginOutput;
 import com.agro.wallet.service.LoginEntityService;
+import com.agro.wallet.service.UserEntityService;
 import com.agro.wallet.service.WalletEntityService;
 import com.agro.wallet.utils.JwtTokenUtil;
 import com.agro.wallet.utils.LoginData;
@@ -15,6 +17,7 @@ import com.agro.wallet.utils.LoginStore;
 import com.agro.wallet.utils.UserStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 
 @Service
@@ -27,7 +30,7 @@ public class LoginServiceImpl implements LoginService {
     LoginEntityService loginEntityService;
 
     @Autowired
-    WalletEntityService walletEntityService;
+    UserEntityService userEntityService;
 
     @Autowired
     JwtTokenUtil jwtTokenUtil;
@@ -37,15 +40,22 @@ public class LoginServiceImpl implements LoginService {
 
         LoginEntity loginEntity = loginEntityService.findByMobileNumber(loginInput
             .getMobileNumber());
-        WalletEntity walletEntity = walletEntityService.findbyUserId(loginEntity.getUserId());
-        LoginData loginData = LoginData.builder().userId(loginEntity.getUserId()).walletId
-            (walletEntity.getWalletId())
-            .build();
-        String token = jwtTokenUtil.generateJWT(loginData);
-        loginStore.put(token,loginData);
-        if (!loginInput.equals(loginEntity.getPassword()))
+        if(StringUtils.isEmpty(loginEntity)){
+            throw new WalletException(ErrorCode.INVALID_USER);
+        }
+        UserEntity userEntity = userEntityService.findByUserId(loginEntity.getUserId());
+
+
+        if (!loginInput.getPassword().equals(loginEntity.getPassword()))
             throw new WalletException(ErrorCode.INVALID_PASSWORD);
 
-        return LoginOutput.builder().message("loggedInsuccessfully").build();
+        LoginData loginData = LoginData.builder().userId(loginEntity.getUserId()).walletId
+            (userEntity.getWalletId())
+            .build();
+
+        String token = jwtTokenUtil.generateJWT(loginData);
+        loginStore.put(token,loginData);
+
+        return LoginOutput.builder().message("Successfully logged In").build();
     }
 }

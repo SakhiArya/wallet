@@ -8,4 +8,6 @@ import lombok.Setter;
 @Setter
 public class ApiRequest {
 
+    private String token;
+
 }

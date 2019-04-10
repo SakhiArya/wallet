@@ -79,7 +79,7 @@ public class RegistrationServiceImpl implements RegisterationService {
             messageTemplate+otp,senderId);
         registerUserInToken(JWT,otp,walletRegisterationInput);
 
-        return WalletRegistrationOutput.builder().token(JWT).isSuccess(Boolean.TRUE).build();
+        return WalletRegistrationOutput.builder().token(JWT).build();
 
     }
 

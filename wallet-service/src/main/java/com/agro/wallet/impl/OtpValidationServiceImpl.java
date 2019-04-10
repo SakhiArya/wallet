@@ -68,7 +68,7 @@ public class OtpValidationServiceImpl implements OtpValidationService {
                  .build();
          }
 
-        return new SubmitOtpOutput(ErrorCode.WALLET_EXCEPTION,ErrorCode.WALLET_EXCEPTION
+        return new SubmitOtpOutput(ErrorCode.INVALID_OTP,ErrorCode.INVALID_OTP
             .getDescription(),"Unable to save user",null);
     }
 
@@ -98,7 +98,7 @@ public class OtpValidationServiceImpl implements OtpValidationService {
 
         UserEntity userEntity = UserEntity.builder()
             .userStatus(UserStatus.VERIFIED)
-            .userType(UserType.PERSON)
+            .userType(UserType.INDIVIDUAL)
             .addressId(savedEntity.getAddressId())
             .dob(walletRegisterationInput.getDob())
             .email(walletRegisterationInput.getEmailId())

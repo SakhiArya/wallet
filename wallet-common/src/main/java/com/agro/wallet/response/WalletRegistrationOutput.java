@@ -12,17 +12,13 @@ import lombok.Setter;
 
 public class WalletRegistrationOutput extends ApiResponse {
 
-
-    @JsonInclude(Include.NON_NULL)
-    private String message;
-
     private String token;
 
     @Builder
     public WalletRegistrationOutput(ErrorCode errorCode,
-        String errorMessage, Boolean isSuccess, String message,String token) {
-        super(errorCode, errorMessage);
-        this.message = message;
+        String errorMessage, String message,String token) {
+        super(errorCode, errorMessage,message);
+
         this.token=token;
     }
 

@@ -24,4 +24,9 @@ public class UserServiceImpl extends
     public UserEntity findIfUserAlreadyExists(String mobileNumber) {
         return getDao().findByMobileNumber(mobileNumber);
     }
+
+    @Override
+    public UserEntity findByUserId(String userId) {
+        return getDao().findByUserId(userId);
+    }
 }

@@ -7,4 +7,6 @@ public interface UserEntityService extends BaseService<UserEntity,Integer> {
 
     UserEntity findIfUserAlreadyExists(String mobileNumber);
 
+    UserEntity findByUserId(String userId);
+
 }
