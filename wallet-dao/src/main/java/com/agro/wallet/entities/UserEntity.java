@@ -3,18 +3,26 @@ package com.agro.wallet.entities;
 
 import com.agro.wallet.constants.UserStatus;
 import com.agro.wallet.constants.UserType;
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@Entity
 @Table(name="user")
-public class UserEntity extends AuditedEntity implements Serializable {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserEntity extends AuditedEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,7 +40,7 @@ public class UserEntity extends AuditedEntity implements Serializable {
     @Column(name="first_name",nullable = false)
     private String firstName;
 
-    @Column(name="last_name",nullable = false)
+    @Column(name="last_name")
     private String lastName;
 
     @Column(name="mobile_number",nullable = false)

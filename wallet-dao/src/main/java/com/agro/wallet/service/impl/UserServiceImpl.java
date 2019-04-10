@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserSErviceImpl extends
+public class UserServiceImpl extends
     BaseServiceImpl<UserEntity, Integer> implements
     UserEntityService {
 
@@ -16,7 +16,12 @@ public class UserSErviceImpl extends
     UserRepository userRepository;
 
     @Override
-    public JpaRepository<UserEntity, Integer> getDao() {
+    public UserRepository getDao() {
         return userRepository;
+    }
+
+    @Override
+    public UserEntity findIfUserAlreadyExists(String mobileNumber) {
+        return getDao().findByMobileNumber(mobileNumber);
     }
 }

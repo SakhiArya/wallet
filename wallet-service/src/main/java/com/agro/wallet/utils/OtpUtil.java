@@ -9,8 +9,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 @Slf4j
+@Component
 public class OtpUtil {
 
         static String url = "http://www.way2sms.com";
@@ -48,7 +51,7 @@ public class OtpUtil {
                 bufferedReader.close();
             }catch(Exception ex){
 
-                log.error("Exception at{}:",ex);
+                log.error("WalletException at{}:",ex);
             }
             return content.toString();
         }

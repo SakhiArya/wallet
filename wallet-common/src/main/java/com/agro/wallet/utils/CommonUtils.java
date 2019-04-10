@@ -2,7 +2,9 @@
 package com.agro.wallet.utils;
 
 import java.util.UUID;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CommonUtils {
 
 
@@ -18,11 +20,11 @@ public class CommonUtils {
 		}
 	}
 	
-	public static boolean isNotVoid(Object obj){
+	public  boolean isNotVoid(Object obj){
 		return !isVoid(obj);
 	}
 
-	public static String generateUUID(String partCode){
+	public  String generateUUID(String partCode){
 		String uuid = UUID.randomUUID().toString().toUpperCase().replaceAll("-", "");
 		return partCode + uuid;
 	}

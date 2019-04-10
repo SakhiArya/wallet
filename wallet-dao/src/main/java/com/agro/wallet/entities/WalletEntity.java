@@ -3,15 +3,19 @@ package com.agro.wallet.entities;
 import com.agro.wallet.constants.CurrencyType;
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.Builder;
 
+@Entity
 @Table(name="wallet")
-public class WalletEntity extends AuditedEntity implements Serializable {
+@Builder
+public class WalletEntity extends AuditedEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
 

@@ -3,6 +3,7 @@ package com.agro.wallet.entities;
 import com.agro.wallet.constants.TransactionStatus;
 import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Table(name="transactions")
-public class TransactionEntity extends AuditedEntity implements Serializable {
+@Entity
+public class TransactionEntity extends AuditedEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
 

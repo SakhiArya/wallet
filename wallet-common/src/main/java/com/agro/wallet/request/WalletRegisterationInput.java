@@ -1,6 +1,7 @@
 package com.agro.wallet.request;
 
 import java.time.LocalDate;
+import java.util.Date;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -32,13 +33,16 @@ public class WalletRegisterationInput extends ApiRequest {
     @NotNull
     private String country;
 
+    @NotNull
+    private String state;
+
     private String pincode;
 
     @Email
     private String emailId;
 
     @NotNull
-    private LocalDate dob;
+    private Date dob;
 
     @Builder
     public WalletRegisterationInput(@NotNull String password,
@@ -46,7 +50,7 @@ public class WalletRegisterationInput extends ApiRequest {
         @Size(min = 10, max = 10) String mobileNumber,
         @NotNull String addressLine, @NotNull String city,
         @NotNull String country, String pincode,
-        @Email String emailId, @NotNull LocalDate dob) {
+        @Email String emailId, @NotNull Date dob) {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;

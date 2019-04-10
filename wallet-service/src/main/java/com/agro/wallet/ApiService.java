@@ -15,9 +15,9 @@ public abstract class ApiService<I extends ApiRequest, O extends ApiResponse> {
         .getLogger(ApiService.class);
 
 
-    public abstract O callApi(I input) throws Exception;
+    public abstract O callApi(I input) throws WalletException;
 
-    public O execute(I apiInput) throws Exception {
+    public O execute(I apiInput) throws WalletException {
         Date startTime = new Date();
         logApi(getApiName() + ": " + ObjectUtils.getStringJSONWithoutNullValues(apiInput), true);
         O apiOutput=null;

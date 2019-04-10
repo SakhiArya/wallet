@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableScheduling
 @ComponentScan({"com.agro"})
-@EntityScan("com.agro.dao")
+@EntityScan({"com.agro.wallet","com.agro.wallet.entities"})
 public class WalletMain {
 
     public static void main(String[] args) {

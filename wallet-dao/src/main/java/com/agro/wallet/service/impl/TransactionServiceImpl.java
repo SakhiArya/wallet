@@ -16,7 +16,7 @@ public class TransactionServiceImpl extends
     TransactionRepository transactionRepository;
 
     @Override
-    public JpaRepository<TransactionEntity, Integer> getDao() {
+    public TransactionRepository getDao() {
         return transactionRepository;
     }
 }

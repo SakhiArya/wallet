@@ -8,7 +8,7 @@ public interface RegisterationService {
 
     WalletRegistrationOutput registerUser(WalletRegisterationInput walletRegisterationInput);
 
-    void registerUser(String token, String otp);
+    void registerUserInToken(String token, String otp,WalletRegisterationInput walletRegisterationInput);
 
     default <T> Predicate<T> not(Predicate<T> predicate) {
         return predicate.negate();

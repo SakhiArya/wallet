@@ -5,19 +5,22 @@ import com.agro.wallet.utils.Encrypted;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Convert;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import lombok.Builder;
 
-
+@Entity
 @Table(name="login",indexes = {
     @Index(name="mobile_number_UNIQUE",columnList= "mobile_number",unique=true),
     @Index(name="user_id_UNIQUE",columnList= "user_id",unique=true),
     @Index(name="login_user_fk_idx",columnList= "user_id",unique=true)
 })
-public class LoginEntity extends AuditedEntity implements Serializable {
+@Builder
+public class LoginEntity extends AuditedEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
 

@@ -17,7 +17,7 @@ public class LoginEntityServiceImpl extends
     private LoginRepository conditionRepository;
 
     @Override
-    public JpaRepository<LoginEntity, Integer> getDao() {
+    public LoginRepository getDao() {
         return conditionRepository;
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class OtpValidationApi extends ApiService<SubmitOtpInput, SubmitOtpOutput> {
 
     @Override
-    public SubmitOtpOutput callApi(SubmitOtpInput input) throws Exception {
+    public SubmitOtpOutput callApi(SubmitOtpInput input) {
         return null;
     }
 }

@@ -16,7 +16,7 @@ public class AddressServiceImpl extends
     AddressRepository addressRepository;
 
     @Override
-    public JpaRepository<AddressEntity, Integer> getDao() {
+    public AddressRepository getDao() {
         return addressRepository;
     }
 }

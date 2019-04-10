@@ -14,7 +14,7 @@ public class RegisterationApi extends ApiService<WalletRegisterationInput, Walle
     RegisterationService registerationService;
 
     @Override
-    public WalletRegistrationOutput callApi(WalletRegisterationInput input) throws Exception {
+    public WalletRegistrationOutput callApi(WalletRegisterationInput input) {
         return registerationService.registerUser(input);
     }
 }
