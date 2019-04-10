@@ -7,6 +7,7 @@ import com.agro.wallet.entities.UserEntity;
 import com.agro.wallet.request.WalletRegisterationInput;
 import com.agro.wallet.response.WalletRegistrationOutput;
 import com.agro.wallet.service.UserEntityService;
+import com.agro.wallet.utils.JwtTokenUtil;
 import com.agro.wallet.utils.OtpUtil;
 import com.agro.wallet.utils.RegisterationTokenStore;
 import com.agro.wallet.utils.TokenUtils;
@@ -56,8 +57,8 @@ public class RegistrationServiceImpl implements RegisterationService {
     @Autowired
     private UserStore userStore;
 
-
-    private static final Gson gson = new Gson();
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @Override
     public WalletRegistrationOutput registerUser(
@@ -70,9 +71,7 @@ public class RegistrationServiceImpl implements RegisterationService {
             throw new WalletException(ErrorCode.ALREADY_EXISTS);
         }
 
-        String JWT = Jwts.builder().setSubject(gson.toJson(walletRegisterationInput))
-            .setExpiration(new Date(System.currentTimeMillis() + TokenUtils.EXPIRATIONTIME))
-            .signWith(SignatureAlgorithm.HS512, TokenUtils.SECRET).compact();
+        String JWT =jwtTokenUtil.generateJWT(walletRegisterationInput);
         String otp = generateOTP();
         String success = otpUtil.sendCampaign(apiKey,secretKey,useType,walletRegisterationInput
                 .getMobileNumber()

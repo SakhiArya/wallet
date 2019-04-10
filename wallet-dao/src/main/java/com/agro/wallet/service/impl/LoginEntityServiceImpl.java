@@ -4,7 +4,6 @@ import com.agro.wallet.entities.LoginEntity;
 import com.agro.wallet.repository.LoginRepository;
 import com.agro.wallet.service.LoginEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,5 +18,10 @@ public class LoginEntityServiceImpl extends
     @Override
     public LoginRepository getDao() {
         return conditionRepository;
+    }
+
+    @Override
+    public LoginEntity findByMobileNumber(String mobileNumber) {
+        return getDao().findByMobileNumber(mobileNumber);
     }
 }

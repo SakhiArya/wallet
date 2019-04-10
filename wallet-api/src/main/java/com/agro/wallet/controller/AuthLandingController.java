@@ -1,12 +1,13 @@
 package com.agro.wallet.controller;
 
 
+import com.agro.wallet.apis.LoginApi;
 import com.agro.wallet.apis.OtpValidationApi;
 import com.agro.wallet.apis.RegisterationApi;
+import com.agro.wallet.request.LoginInput;
 import com.agro.wallet.request.ResponseUtils;
 import com.agro.wallet.request.SubmitOtpInput;
 import com.agro.wallet.request.WalletRegisterationInput;
-import com.agro.wallet.response.SubmitOtpOutput;
 import com.agro.wallet.response.WalletApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +33,9 @@ public class AuthLandingController {
     @Autowired
     OtpValidationApi otpValidationApi;
 
+    @Autowired
+    LoginApi loginApi;
+
 
 
     @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
@@ -49,7 +53,7 @@ public class AuthLandingController {
 
 
     @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
-        "Api to register user", notes = "The API is used to create/register new user",
+        "Api to register user", notes = "The API is used to validate OTP",
         produces = "application/json")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Successful")})
@@ -60,6 +64,21 @@ public class AuthLandingController {
         throws Exception {
 
         return ResponseUtils.successResponse(otpValidationApi.execute(registerationInput));
+    }
+
+
+    @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
+        "Api to register user", notes = "The API is used to validate OTP",
+        produces = "application/json")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful")})
+    @RequestMapping(method = RequestMethod.POST, value = "/login")
+
+    public WalletApiResponse login(@Valid @RequestBody LoginInput
+        loginInput)
+        throws Exception {
+
+        return ResponseUtils.successResponse(loginApi.execute(loginInput));
     }
 
 

@@ -4,4 +4,6 @@ import com.agro.wallet.entities.LoginEntity;
 
 public interface LoginEntityService extends BaseService<LoginEntity,Integer> {
 
+    LoginEntity findByMobileNumber(String mobileNumber);
+
 }

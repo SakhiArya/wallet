@@ -5,7 +5,6 @@ import com.agro.wallet.entities.WalletEntity;
 import com.agro.wallet.repository.WalletRepository;
 import com.agro.wallet.service.WalletEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +16,12 @@ public class WalletServiceImpl extends
     WalletRepository walletRepository;
 
     @Override
-    public JpaRepository<WalletEntity, Integer> getDao() {
+    public WalletRepository getDao() {
         return walletRepository;
+    }
+
+    @Override
+    public WalletEntity findbyUserId(String userId) {
+        return getDao().findbyUserId(userId);
     }
 }

@@ -18,11 +18,15 @@ public class ApiResponse {
     @JsonInclude(Include.NON_NULL)
     private String errorMessage;
 
+    @JsonInclude(Include.NON_NULL)
+    private String message;
+
     public ApiResponse(){}
 
-    public ApiResponse(ErrorCode errorCode,String errorMessage){
+    public ApiResponse(ErrorCode errorCode,String errorMessage,String message){
         this.errorMessage=errorMessage;
         this.errorCode=errorCode;
+        this.message=message;
     }
 
 }

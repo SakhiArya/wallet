@@ -14,6 +14,7 @@ import com.agro.wallet.request.SubmitOtpInput;
 import com.agro.wallet.request.WalletRegisterationInput;
 import com.agro.wallet.response.SubmitOtpOutput;
 import com.agro.wallet.service.AddressEntityService;
+import com.agro.wallet.service.LoginEntityService;
 import com.agro.wallet.service.UserEntityService;
 import com.agro.wallet.service.WalletEntityService;
 import com.agro.wallet.utils.CommonUtils;
@@ -44,6 +45,9 @@ public class OtpValidationServiceImpl implements OtpValidationService {
 
     @Autowired
     private CommonUtils commonUtils;
+
+    @Autowired
+    private LoginEntityService loginEntityService;
 
     @Override
     public SubmitOtpOutput validateOtp(SubmitOtpInput submitOtpInput) {
@@ -105,14 +109,17 @@ public class OtpValidationServiceImpl implements OtpValidationService {
             .mobileNumber(walletRegisterationInput.getMobileNumber())
             .walletId(savedWalletEntity.getWalletId()).build();
 
+        UserEntity savedUserEntity=userEntityService.getDao().save(userEntity);
 
         LoginEntity loginEntity = LoginEntity.builder().mobileNumber(walletRegisterationInput
             .getMobileNumber()).password(walletRegisterationInput.getPassword()).userId
             (userEntity.getUserId()).build();
 
-        userEntity=userEntityService.getDao().save(userEntity);
+        loginEntityService.getDao().save(loginEntity);
 
-        return userEntity.getUserId();
+
+
+        return savedUserEntity.getUserId();
 
 
     }
