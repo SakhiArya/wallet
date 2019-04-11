@@ -4,6 +4,7 @@ package com.agro.wallet.entities;
 import com.agro.wallet.constants.UserStatus;
 import com.agro.wallet.constants.UserType;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +12,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,7 +40,8 @@ public class UserEntity extends AuditedEntity<Integer> {
     @Column(name="user_id",nullable = false)
     private String userId;
 
-    @Column(name="wallet_id",nullable = false)
+    @OneToOne(targetEntity=WalletEntity.class,cascade= CascadeType.ALL)
+    @JoinColumn(name="wallet_id",referencedColumnName="wallet_id")
     private String walletId;
 
     @Column(name="first_name",nullable = false)

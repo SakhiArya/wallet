@@ -3,6 +3,7 @@ package com.agro.wallet.entities;
 import com.agro.wallet.utils.AESEncrytionUtils;
 import com.agro.wallet.utils.Encrypted;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,8 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="login",indexes = {
     @Index(name="mobile_number_UNIQUE",columnList= "mobile_number",unique=true),
-    @Index(name="user_id_UNIQUE",columnList= "user_id",unique=true),
-    @Index(name="login_user_fk_idx",columnList= "user_id",unique=true)
+    @Index(name="user_id_UNIQUE",columnList= "user_id",unique=true)
 })
 @Builder
 @NoArgsConstructor
@@ -36,7 +38,8 @@ public class LoginEntity extends AuditedEntity<Integer> {
     @Column(name="mobile_number",nullable = false)
     private String mobileNumber;
 
-    @Column(name="user_id",nullable = false)
+    @OneToOne(targetEntity=UserEntity.class,cascade= CascadeType.ALL)
+    @JoinColumn(name="user_id",referencedColumnName="user_id",nullable = false)
     private String userId;
 
     @Column(name="password",nullable = false)

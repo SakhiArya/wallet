@@ -2,6 +2,7 @@ package com.agro.wallet.entities;
 
 import com.agro.wallet.constants.TransactionStatus;
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import lombok.AllArgsConstructor;
@@ -29,10 +32,12 @@ public class TransactionEntity extends AuditedEntity<Integer> {
     @Column(name="id")
     private Integer id;
 
-    @Column(name="payer_wallet_id",nullable = false)
+    @OneToOne(targetEntity=WalletEntity.class,cascade= CascadeType.ALL)
+    @JoinColumn(name="payer_wallet_id",referencedColumnName="wallet_id",nullable = false)
     private String payerWalletId;
 
-    @Column(name="payee_wallet_id",nullable = false)
+    @OneToOne(targetEntity=WalletEntity.class,cascade= CascadeType.ALL)
+    @JoinColumn(name="payee_wallet_id",referencedColumnName="wallet_id",nullable = false)
     private String payeeWalletId;
 
     @Column(name="amount",nullable = false)
