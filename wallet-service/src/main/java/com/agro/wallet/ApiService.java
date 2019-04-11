@@ -45,9 +45,8 @@ public abstract class ApiService<I extends ApiRequest, O extends ApiResponse> {
     }
 
 
-
     protected void logApi(String logMessage,boolean isInput){
-        StringBuilder sb = new StringBuilder("RULEAPI ");
+        StringBuilder sb = new StringBuilder("WALLETAPI ");
         sb.append(isInput ? " API_IN:" : " API_OUT:");
         sb.append(logMessage);
         logger.info(sb.toString());

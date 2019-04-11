@@ -17,6 +17,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import java.util.Random;
+import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.asm.Advice.Unused;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 @Service
+@Slf4j
 public class RegistrationServiceImpl implements RegisterationService {
 
 
@@ -49,8 +51,6 @@ public class RegistrationServiceImpl implements RegisterationService {
     @Autowired
     private UserEntityService userEntityService;
 
-
-
     @Autowired
     private RegisterationTokenStore tokenStore;
 
@@ -63,6 +63,8 @@ public class RegistrationServiceImpl implements RegisterationService {
     @Override
     public WalletRegistrationOutput registerUser(
         WalletRegisterationInput walletRegisterationInput) {
+
+        log.info("start of registerUser");
 
         UserEntity ifUserPresent = userEntityService.findIfUserAlreadyExists
             (walletRegisterationInput.getMobileNumber());
@@ -79,14 +81,20 @@ public class RegistrationServiceImpl implements RegisterationService {
             messageTemplate+otp,senderId);
         registerUserInToken(JWT,otp,walletRegisterationInput);
 
+        log.info("end of registerUser");
         return WalletRegistrationOutput.builder().token(JWT).build();
 
     }
 
     @Override
     public void registerUserInToken(String token, String otp,WalletRegisterationInput walletRegisterationInput) {
+
+        log.info("start of registerUserInToken");
+
         tokenStore.put(token, otp);
         userStore.put(token,walletRegisterationInput);
+
+        log.info("end of registerUserInToken");
 
     }
 

@@ -5,22 +5,21 @@ import com.agro.wallet.WalletException;
 import com.agro.wallet.constants.ErrorCode;
 import com.agro.wallet.entities.LoginEntity;
 import com.agro.wallet.entities.UserEntity;
-import com.agro.wallet.entities.WalletEntity;
 import com.agro.wallet.request.LoginInput;
 import com.agro.wallet.response.LoginOutput;
 import com.agro.wallet.service.LoginEntityService;
 import com.agro.wallet.service.UserEntityService;
-import com.agro.wallet.service.WalletEntityService;
 import com.agro.wallet.utils.JwtTokenUtil;
 import com.agro.wallet.utils.LoginData;
 import com.agro.wallet.utils.LoginStore;
-import com.agro.wallet.utils.UserStore;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 
 @Service
+@Slf4j
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
@@ -37,6 +36,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginOutput loginUser(LoginInput loginInput) {
+
+        log.info("Start loginUser for {} :",loginInput.getMobileNumber());
 
         LoginEntity loginEntity = loginEntityService.findByMobileNumber(loginInput
             .getMobileNumber());
@@ -55,7 +56,7 @@ public class LoginServiceImpl implements LoginService {
 
         String token = jwtTokenUtil.generateJWT(loginData);
         loginStore.put(token,loginData);
-
+        log.info("end loginUser {} :",loginInput.getMobileNumber());
         return LoginOutput.builder().message("Successfully logged In").build();
     }
 }

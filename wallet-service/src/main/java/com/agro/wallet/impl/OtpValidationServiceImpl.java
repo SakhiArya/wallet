@@ -20,12 +20,14 @@ import com.agro.wallet.service.WalletEntityService;
 import com.agro.wallet.utils.CommonUtils;
 import com.agro.wallet.utils.RegisterationTokenStore;
 import com.agro.wallet.utils.UserStore;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 @Service
+@Slf4j
 public class OtpValidationServiceImpl implements OtpValidationService {
 
     @Autowired
@@ -51,6 +53,7 @@ public class OtpValidationServiceImpl implements OtpValidationService {
 
     @Override
     public SubmitOtpOutput validateOtp(SubmitOtpInput submitOtpInput) {
+        log.info("start of validateOtp");
         String token = submitOtpInput.getToken();
          String storedOtp = tokenStore.getValue(token);
         WalletRegisterationInput walletRegisterationInput =userStore.getValue(token);
@@ -59,15 +62,15 @@ public class OtpValidationServiceImpl implements OtpValidationService {
          }
          if(storedOtp.equals(submitOtpInput.getOtp())){
 
-            String userId=saveUserInDb(walletRegisterationInput);
+            String mobileNumber=saveUserInDb(walletRegisterationInput);
              tokenStore.remove(token);
              userStore.remove(token);
-
+             log.info("end of validateOtp-successfully");
              return SubmitOtpOutput.builder().message("Congratulations you are successfully "
-                 + "registered please login with your mobile number and password").userId(userId)
+                 + "registered please login with your mobile number and password").mobileNumber(mobileNumber)
                  .build();
          }
-
+        log.info("end of validateOtp-unsuccessful");
         return new SubmitOtpOutput(ErrorCode.INVALID_OTP,ErrorCode.INVALID_OTP
             .getDescription(),"Unable to save user",null);
     }
@@ -75,7 +78,7 @@ public class OtpValidationServiceImpl implements OtpValidationService {
 
     @Transactional
     private String saveUserInDb(WalletRegisterationInput walletRegisterationInput){
-
+        log.info("start of saveUserInDb after otp validation");
         AddressEntity addressEntity = AddressEntity.builder()
             .addressLine1(walletRegisterationInput.getAddress().getAddressLine())
             .city(walletRegisterationInput.getAddress().getCity())
@@ -117,9 +120,9 @@ public class OtpValidationServiceImpl implements OtpValidationService {
 
         loginEntityService.getDao().save(loginEntity);
 
+        log.info("end of saveUserInDb after otp validation");
 
-
-        return savedUserEntity.getUserId();
+        return savedUserEntity.getMobileNumber();
 
 
     }

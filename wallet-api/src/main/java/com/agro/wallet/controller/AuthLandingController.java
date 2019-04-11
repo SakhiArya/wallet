@@ -38,7 +38,6 @@ public class AuthLandingController {
     LoginApi loginApi;
 
 
-
     @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
         "Api to register user", notes = "The API is used to create/register new user",
         produces = "application/json")
@@ -46,8 +45,11 @@ public class AuthLandingController {
         @ApiResponse(code = 200, message = "Successful")})
     @RequestMapping(method = RequestMethod.POST, value = C.API_REGISTERATION)
 
-    public WalletApiResponse createRule(@Valid @RequestBody WalletRegisterationInput registerationInput)
-        throws Exception {
+    public WalletApiResponse registerUser(@Valid @RequestBody WalletRegisterationInput
+        registerationInput) {
+        log.info("Inside AuthLandingController ,Start of registerUser with mobile number {}",
+            registerationInput.getMobileNumber
+            ());
 
         return ResponseUtils.successResponse(registerationApi.execute(registerationInput));
     }
@@ -61,10 +63,10 @@ public class AuthLandingController {
     @RequestMapping(method = RequestMethod.POST, value = C.API_SUBMITOTP)
 
     public WalletApiResponse submitOtp(@Valid @RequestBody SubmitOtpInput
-        registerationInput)
-        throws Exception {
+        submitOtpInput) {
+        log.info("Inside AuthLandingController ,Start of submitOtp" );
 
-        return ResponseUtils.successResponse(otpValidationApi.execute(registerationInput));
+        return ResponseUtils.successResponse(otpValidationApi.execute(submitOtpInput));
     }
 
 
@@ -76,9 +78,10 @@ public class AuthLandingController {
     @RequestMapping(method = RequestMethod.POST, value = C.API_LOGIN)
 
     public WalletApiResponse login(@Valid @RequestBody LoginInput
-        loginInput)
-        throws Exception {
+        loginInput) {
 
+        log.info("Inside AuthLandingController ,Start of login with mobile number {} ", loginInput.getMobileNumber
+            ());
         return ResponseUtils.successResponse(loginApi.execute(loginInput));
     }
 

@@ -13,18 +13,18 @@ public class SubmitOtpOutput extends ApiResponse {
     public SubmitOtpOutput() {
     }
 
-      private String userId;
+      private String mobileNumber;
 
 
     public SubmitOtpOutput(String message, String userId) {
-        this.userId = userId;
+        this.mobileNumber = userId;
     }
 
     @Builder
     public SubmitOtpOutput(ErrorCode errorCode, String errorMessage, String message,
-        String userId) {
+        String mobileNumber) {
         super(errorCode, errorMessage,message);
-        this.userId = userId;
+        this.mobileNumber = mobileNumber;
     }
 
 }
