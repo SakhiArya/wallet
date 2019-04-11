@@ -4,6 +4,7 @@ package com.agro.wallet.controller;
 import com.agro.wallet.apis.LoginApi;
 import com.agro.wallet.apis.OtpValidationApi;
 import com.agro.wallet.apis.RegisterationApi;
+import com.agro.wallet.constants.C;
 import com.agro.wallet.request.LoginInput;
 import com.agro.wallet.request.ResponseUtils;
 import com.agro.wallet.request.SubmitOtpInput;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value =C.CONTROLLER_USER)
 @Api(value = "", description = "this controller is for user's registration and login ")
 @Slf4j
 public class AuthLandingController {
@@ -43,7 +44,7 @@ public class AuthLandingController {
         produces = "application/json")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Successful")})
-    @RequestMapping(method = RequestMethod.POST, value = "/register")
+    @RequestMapping(method = RequestMethod.POST, value = C.API_REGISTERATION)
 
     public WalletApiResponse createRule(@Valid @RequestBody WalletRegisterationInput registerationInput)
         throws Exception {
@@ -57,7 +58,7 @@ public class AuthLandingController {
         produces = "application/json")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Successful")})
-    @RequestMapping(method = RequestMethod.POST, value = "/submitOtp")
+    @RequestMapping(method = RequestMethod.POST, value = C.API_SUBMITOTP)
 
     public WalletApiResponse submitOtp(@Valid @RequestBody SubmitOtpInput
         registerationInput)
@@ -72,7 +73,7 @@ public class AuthLandingController {
         produces = "application/json")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Successful")})
-    @RequestMapping(method = RequestMethod.POST, value = "/login")
+    @RequestMapping(method = RequestMethod.POST, value = C.API_LOGIN)
 
     public WalletApiResponse login(@Valid @RequestBody LoginInput
         loginInput)

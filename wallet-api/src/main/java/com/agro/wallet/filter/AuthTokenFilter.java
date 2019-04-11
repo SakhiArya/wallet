@@ -4,6 +4,7 @@ package com.agro.wallet.filter;
 import com.agro.wallet.WalletException;
 import com.agro.wallet.constants.ErrorCode;
 import com.agro.wallet.request.ApiRequest;
+import com.agro.wallet.utils.LoginData;
 import com.agro.wallet.utils.LoginStore;
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -31,7 +32,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         }
 
         ApiRequest apiRequest =(ApiRequest)request;
-        if(StringUtils.isEmpty(loginStore.getValue(apiRequest.getToken()))){
+        LoginData loginData = loginStore.getValue(apiRequest.getToken());
+        if(StringUtils.isEmpty(loginData)){
+            throw new WalletException(ErrorCode.UNAUTH_USER);
+        }
+
+        if (!apiRequest.getMobileNumber().equals(loginData.getMobileNumber())){
             throw new WalletException(ErrorCode.UNAUTH_USER);
         }
 

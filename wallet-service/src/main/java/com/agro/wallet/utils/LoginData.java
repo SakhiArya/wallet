@@ -13,7 +13,7 @@ import lombok.Setter;
 @Builder
 public class LoginData {
 
-    private String userId;
+    private String mobileNumber;
 
     private String walletId;
 

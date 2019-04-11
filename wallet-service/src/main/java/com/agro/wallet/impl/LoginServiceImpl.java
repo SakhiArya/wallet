@@ -49,7 +49,7 @@ public class LoginServiceImpl implements LoginService {
         if (!loginInput.getPassword().equals(loginEntity.getPassword()))
             throw new WalletException(ErrorCode.INVALID_PASSWORD);
 
-        LoginData loginData = LoginData.builder().userId(loginEntity.getUserId()).walletId
+        LoginData loginData = LoginData.builder().mobileNumber(loginEntity.getMobileNumber()).walletId
             (userEntity.getWalletId())
             .build();
 
