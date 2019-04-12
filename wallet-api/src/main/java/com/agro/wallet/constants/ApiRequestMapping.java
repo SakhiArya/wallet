@@ -11,4 +11,5 @@ public interface ApiRequestMapping {
     String CONTROLLER_USER = "/user";
 
     String API_ADDMONEY ="/addMoney";
+    String API_FETCH_TXNS ="/getTransactions";
 }

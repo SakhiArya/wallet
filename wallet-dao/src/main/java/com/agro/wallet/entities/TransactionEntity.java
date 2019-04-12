@@ -1,9 +1,13 @@
 package com.agro.wallet.entities;
 
 import com.agro.wallet.constants.TransactionStatus;
+import com.agro.wallet.response.Transactions;
+import com.agro.wallet.util.Queries;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,18 +15,46 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Table(name="transactions")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
+@SqlResultSetMapping(
+    name = "transactions",
+    classes = {
+        @ConstructorResult(
+            targetClass = Transactions.class,
+            columns = {
+                @ColumnResult(name = "amount"),
+                @ColumnResult(name = "status"),
+                @ColumnResult(name = "note"),
+                @ColumnResult(name = "paidOn"),
+                @ColumnResult(name = "paidTo")
+            }
+        )
+    }
+)
+
+@NamedNativeQuery(
+    name = "TransactionEntity.getAllTransactionForWalletId",
+    query = Queries.getTransactions,
+    resultSetMapping = "transactions")
+@Getter
+@Setter
+
 public class TransactionEntity extends AuditedEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
@@ -54,63 +86,4 @@ public class TransactionEntity extends AuditedEntity<Integer> {
     @Column(name = "lock_id", columnDefinition = "int(5) default 0", nullable = false)
     private Integer  lockId = 1;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getPayerWalletId() {
-        return payerWalletId;
-    }
-
-    public void setPayerWalletId(String payerWalletId) {
-        this.payerWalletId = payerWalletId;
-    }
-
-    public String getPayeeWalletId() {
-        return payeeWalletId;
-    }
-
-    public void setPayeeWalletId(String payeeWalletId) {
-        this.payeeWalletId = payeeWalletId;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public TransactionStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(TransactionStatus status) {
-        this.status = status;
-    }
-
-    public Integer getLockId() {
-        return lockId;
-    }
-
-    public void setLockId(Integer lockId) {
-        this.lockId = lockId;
-    }
 }

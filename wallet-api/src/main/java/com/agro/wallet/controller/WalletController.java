@@ -2,8 +2,10 @@ package com.agro.wallet.controller;
 
 
 import com.agro.wallet.apis.AddMoneyInputApi;
+import com.agro.wallet.apis.FetchTxnApi;
 import com.agro.wallet.constants.C;
 import com.agro.wallet.request.AddMoneyInput;
+import com.agro.wallet.request.FetchTxnInput;
 import com.agro.wallet.request.ResponseUtils;
 import com.agro.wallet.response.WalletApiResponse;
 import io.swagger.annotations.Api;
@@ -27,9 +29,12 @@ public class WalletController {
     @Autowired
     AddMoneyInputApi addMoneyInputApi;
 
+    @Autowired
+    FetchTxnApi fetchTxnApi;
+
 
     @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
-        "Api to register user", notes = "The API is used to create/register new user",
+        "Api to register user", notes = "The API is used to add money to the wallet",
         produces = "application/json")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Successful")})
@@ -37,9 +42,26 @@ public class WalletController {
 
     public WalletApiResponse addMoney(@Valid @RequestBody AddMoneyInput
         addMoneyInput) {
-        log.info("Inside addMoney ,Start of addMoney");
+        log.info("Inside walletcontroller ,Start of addMoney");
 
         return ResponseUtils.successResponse(addMoneyInputApi.execute(addMoneyInput));
     }
+
+    @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
+        "Api to register user", notes = "The API is used to create/register new user",
+        produces = "application/json")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful")})
+    @RequestMapping(method = RequestMethod.POST, value = C.API_FETCH_TXNS)
+
+    public WalletApiResponse fetchTransactions(@Valid @RequestBody FetchTxnInput
+        fetchTxnInput) {
+        log.info("Inside walletcontroller ,Start of addMoney");
+
+        return ResponseUtils.successResponse(fetchTxnApi.execute(fetchTxnInput));
+    }
+
+
+
 
 }
