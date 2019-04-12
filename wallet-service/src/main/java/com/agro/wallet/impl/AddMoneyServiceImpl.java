@@ -25,12 +25,14 @@ public class AddMoneyServiceImpl implements AddMoneyService {
 
     @Override
     public AddMoneyOutput addMoney(AddMoneyInput addMoneyInput) {
+        log.info("start addMoney");
         LoginData loginData = loginStore.getValue(addMoneyInput.getToken());
         WalletEntity walletEntity = walletEntityService.findById(loginData.getWalletId());
         Double currentBalance = walletEntity.getBalance();
         Double updatedBalance = currentBalance+addMoneyInput.getAmount();
         walletEntity.setBalance(updatedBalance);
         walletEntityService.getDao().save(walletEntity);
+        log.info("end addMoney");
         return AddMoneyOutput.builder().newBalance("Your updated balance is "+updatedBalance).build();
     }
 }
