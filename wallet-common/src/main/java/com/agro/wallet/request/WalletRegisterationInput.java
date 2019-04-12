@@ -24,9 +24,6 @@ public class WalletRegisterationInput extends ApiRequest {
 
     private String lastName;
 
-    @Size(min = 10,max = 10)
-    private String mobileNumber;
-
     @Email
     private String emailId;
 
@@ -40,14 +37,12 @@ public class WalletRegisterationInput extends ApiRequest {
     @Builder
     public WalletRegisterationInput(@NotNull String password,
         @NotNull String firstName, String lastName,
-        @Size(min = 10, max = 10) String mobileNumber,
         @NotNull String addressLine, @NotNull String city,
         @NotNull String country, String pincode,
         @Email String emailId, @NotNull Date dob,@NotNull @Valid Address address) {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.mobileNumber = mobileNumber;
         this.emailId = emailId;
         this.dob = dob;
         this.address=address;

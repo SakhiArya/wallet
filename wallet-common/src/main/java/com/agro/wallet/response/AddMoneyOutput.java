@@ -1,5 +1,11 @@
 package com.agro.wallet.response;
 
-public class AddMoneyOutput {
+
+import lombok.Builder;
+
+@Builder
+public class AddMoneyOutput extends ApiResponse {
+
+    private String newBalance;
 
 }

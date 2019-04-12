@@ -1,5 +1,10 @@
 package com.agro.wallet;
 
-public class AddMoneyService {
+import com.agro.wallet.request.AddMoneyInput;
+import com.agro.wallet.response.AddMoneyOutput;
+
+public interface AddMoneyService {
+
+    public AddMoneyOutput addMoney(AddMoneyInput addMoneyInput);
 
 }

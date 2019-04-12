@@ -8,5 +8,7 @@ public interface ApiRequestMapping {
 
     String API_LOGIN ="/login";
 
-    String CONTROLLER_USER =  "/user";
+    String CONTROLLER_USER = "/user";
+
+    String API_ADDMONEY ="/addMoney";
 }

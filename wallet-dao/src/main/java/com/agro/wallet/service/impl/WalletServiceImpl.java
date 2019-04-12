@@ -20,4 +20,9 @@ public class WalletServiceImpl extends
         return walletRepository;
     }
 
+    @Override
+    public WalletEntity findById(String walletId) {
+
+        return getDao().findByWalletId(walletId);
+    }
 }
