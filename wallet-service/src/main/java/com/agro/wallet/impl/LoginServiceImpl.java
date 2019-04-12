@@ -44,14 +44,14 @@ public class LoginServiceImpl implements LoginService {
         if(StringUtils.isEmpty(loginEntity)){
             throw new WalletException(ErrorCode.INVALID_USER);
         }
-        UserEntity userEntity = userEntityService.findByUserId(loginEntity.getUserId());
+        UserEntity userEntity = userEntityService.findByUserId(loginEntity.getUserId().getUserId());
 
 
         if (!loginInput.getPassword().equals(loginEntity.getPassword()))
             throw new WalletException(ErrorCode.INVALID_PASSWORD);
 
         LoginData loginData = LoginData.builder().mobileNumber(loginEntity.getMobileNumber()).walletId
-            (userEntity.getWalletId())
+            (userEntity.getWalletId().getWalletId())
             .build();
 
         String token = jwtTokenUtil.generateJWT(loginData);

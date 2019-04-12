@@ -31,7 +31,7 @@ public class AddressEntity extends AuditedEntity<Integer>{
     @Column(name="id")
     private Integer id;
 
-    @Column(name="addressId",nullable = false)
+    @Column(name="address_id",nullable = false)
     private String addressId;
 
     @Column(name="address_line1",nullable = false)

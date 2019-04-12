@@ -89,7 +89,7 @@ public class OtpValidationServiceImpl implements OtpValidationService {
             .addressId(commonUtils.generateUUID(walletRegisterationInput.getAddress().getCountry()))
             .build();
 
-        AddressEntity savedEntity = addressEntityService.getDao().save(addressEntity);
+        //AddressEntity savedEntity = addressEntityService.getDao().save(addressEntity);
 
         Double initialBalance = 0.0;
         WalletEntity walletEntity = WalletEntity.builder().balance(initialBalance)
@@ -97,12 +97,12 @@ public class OtpValidationServiceImpl implements OtpValidationService {
             .walletId(commonUtils.generateUUID(walletRegisterationInput.getMobileNumber()))
             .build();
 
-        WalletEntity savedWalletEntity=walletEntityService.getDao().save(walletEntity);
+       // WalletEntity savedWalletEntity=walletEntityService.getDao().save(walletEntity);
 
         UserEntity userEntity = UserEntity.builder()
             .userStatus(UserStatus.VERIFIED)
             .userType(UserType.INDIVIDUAL)
-            .addressId(savedEntity.getAddressId())
+            .addressId(addressEntity)
             .dob(walletRegisterationInput.getDob())
             .email(walletRegisterationInput.getEmailId())
             .firstName(walletRegisterationInput.getFirstName())
@@ -110,19 +110,19 @@ public class OtpValidationServiceImpl implements OtpValidationService {
                 .getLastName():null)
             .userId(commonUtils.generateUUID(walletRegisterationInput.getFirstName()))
             .mobileNumber(walletRegisterationInput.getMobileNumber())
-            .walletId(savedWalletEntity.getWalletId()).build();
+            .walletId(walletEntity).build();
 
-        UserEntity savedUserEntity=userEntityService.getDao().save(userEntity);
+        //UserEntity savedUserEntity=userEntityService.getDao().save(userEntity);
 
         LoginEntity loginEntity = LoginEntity.builder().mobileNumber(walletRegisterationInput
             .getMobileNumber()).password(walletRegisterationInput.getPassword()).userId
-            (userEntity.getUserId()).build();
+            (userEntity).build();
 
         loginEntityService.getDao().save(loginEntity);
 
         log.info("end of saveUserInDb after otp validation");
 
-        return savedUserEntity.getMobileNumber();
+        return userEntity.getMobileNumber();
 
 
     }

@@ -16,7 +16,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="login",indexes = {
@@ -26,6 +28,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class LoginEntity extends AuditedEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
@@ -40,42 +44,11 @@ public class LoginEntity extends AuditedEntity<Integer> {
 
     @OneToOne(targetEntity=UserEntity.class,cascade= CascadeType.ALL)
     @JoinColumn(name="user_id",referencedColumnName="user_id",nullable = false)
-    private String userId;
+    private UserEntity userId;
 
     @Column(name="password",nullable = false)
     @Convert(converter = AESEncrytionUtils.class)
     @Encrypted
     private String password;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getMobileNumber() {
-        return mobileNumber;
-    }
-
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

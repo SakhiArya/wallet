@@ -42,7 +42,7 @@ public class UserEntity extends AuditedEntity<Integer> {
 
     @OneToOne(targetEntity=WalletEntity.class,cascade= CascadeType.ALL)
     @JoinColumn(name="wallet_id",referencedColumnName="wallet_id")
-    private String walletId;
+    private WalletEntity walletId;
 
     @Column(name="first_name",nullable = false)
     private String firstName;
@@ -53,8 +53,9 @@ public class UserEntity extends AuditedEntity<Integer> {
     @Column(name="mobile_number",nullable = false)
     private String mobileNumber;
 
-    @Column(name="address_id",nullable = false)
-    private String addressId;
+    @OneToOne(targetEntity=AddressEntity.class,cascade= CascadeType.ALL)
+    @JoinColumn(name="address_id",referencedColumnName="address_id")
+    private AddressEntity addressId;
 
     @Column(name="email",nullable = false)
     private String email;
