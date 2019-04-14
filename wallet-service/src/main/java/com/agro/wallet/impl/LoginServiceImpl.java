@@ -57,6 +57,6 @@ public class LoginServiceImpl implements LoginService {
         String token = jwtTokenUtil.generateJWT(loginData);
         loginStore.put(token,loginData);
         log.info("end loginUser {} :",loginInput.getMobileNumber());
-        return LoginOutput.builder().message("Successfully logged In").build();
+        return LoginOutput.builder().message("Successfully logged In").token(token).build();
     }
 }

@@ -6,6 +6,8 @@ import com.agro.wallet.constants.ErrorCode;
 import com.agro.wallet.request.ApiRequest;
 import com.agro.wallet.utils.LoginData;
 import com.agro.wallet.utils.LoginStore;
+import com.google.gson.Gson;
+import java.io.BufferedReader;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -25,13 +27,19 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
         FilterChain filterChain) throws ServletException, IOException {
+
         boolean authReqd=isAuthReqd(request);
         if(!authReqd){
             filterChain.doFilter(request, response);
             return;
         }
+        AuthenticationRequestWrapper requestAuth = new AuthenticationRequestWrapper(
+            (HttpServletRequest) request);
+        BufferedReader reader = requestAuth.getReader();
+        Gson gson = new Gson();
 
-        ApiRequest apiRequest =(ApiRequest)request;
+        ApiRequest apiRequest = gson.fromJson(reader, ApiRequest.class);
+        //ApiRequest apiRequest =(ApiRequest)request;
         LoginData loginData = loginStore.getValue(apiRequest.getToken());
         if(StringUtils.isEmpty(loginData)){
             throw new WalletException(ErrorCode.UNAUTH_USER);
@@ -40,6 +48,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         if (!apiRequest.getMobileNumber().equals(loginData.getMobileNumber())){
             throw new WalletException(ErrorCode.UNAUTH_USER);
         }
+
+        filterChain.doFilter(requestAuth, response);
 
     }
 

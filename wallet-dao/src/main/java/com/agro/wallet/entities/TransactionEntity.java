@@ -1,8 +1,12 @@
 package com.agro.wallet.entities;
 
 import com.agro.wallet.constants.TransactionStatus;
+import com.agro.wallet.response.Transactions;
+import com.agro.wallet.util.Queries;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,7 +15,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import lombok.AllArgsConstructor;
@@ -25,6 +31,26 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@SqlResultSetMapping(
+    name = "transactions",
+    classes = {
+        @ConstructorResult(
+            targetClass = Transactions.class,
+            columns = {
+                @ColumnResult(name = "amount"),
+                @ColumnResult(name = "status"),
+                @ColumnResult(name = "note"),
+                @ColumnResult(name = "paidOn"),
+                @ColumnResult(name = "paidTo")
+            }
+        )
+    }
+)
+
+@NamedNativeQuery(
+    name = "TransactionEntity.getAllTransactionForWalletId",
+    query = Queries.getTransactions,
+    resultSetMapping = "transactions")
 @Getter
 @Setter
 public class TransactionEntity extends AuditedEntity<Integer> {

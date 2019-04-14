@@ -1,15 +1,16 @@
 package com.agro.wallet.response;
 
-
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@Builder
+
 @Getter
 @Setter
-public class AddMoneyOutput extends ApiResponse {
+@Builder
+public class FetchTxnOutput extends ApiResponse {
 
-    private String newBalance;
+    List<Transactions> transactions;
 
 }
