@@ -14,8 +14,12 @@ import com.agro.wallet.utils.CommonUtils;
 import com.agro.wallet.utils.LoginData;
 import com.agro.wallet.utils.LoginStore;
 import javax.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
+@Slf4j
 public class PaymentServiceImpl implements PaymentService {
 
 
@@ -30,7 +34,6 @@ public class PaymentServiceImpl implements PaymentService {
     CommonUtils commonUtils;
 
     @Override
-    @Transactional
     public PaymentOutput payment(PaymentInput paymentInput, WalletEntity payeeWallet,WalletEntity payerWallet,TransactionEntity transaction) {
 
         transaction.setStatus(TransactionStatus.PENDING);
@@ -67,7 +70,7 @@ public class PaymentServiceImpl implements PaymentService {
             payeeWallet.setBalance(balance1);
             WalletEntity newPayeeWallet = walletEntityService.getDao().save(payeeWallet);
             WalletEntity newPayerWallet = walletEntityService.getDao().save(payerWallet);
-            return verifyTransaction(payeeWallet,payerWallet,newPayeeWallet,newPayerWallet,amount);
+            return verifyTransaction(payeeWallet,payerWallet,newPayeeWallet,newPayerWallet);
         }
         return false;
     }
@@ -75,17 +78,16 @@ public class PaymentServiceImpl implements PaymentService {
            TransactionEntity transaction = new TransactionEntity();
            transaction.setTxnId(commonUtils.generateUUID("TXN"));
            transaction.setAmount(paymentInput.getAmount());
-           transaction.setPayeeWalletId(payeeWallet.getWalletId());
-           transaction.setPayerWalletId(payerWallet.getWalletId());
+           transaction.setPayeeWalletId(payeeWallet);
+           transaction.setPayerWalletId(payerWallet);
            transaction.setNote(paymentInput.getNote());
            transaction.setStatus(TransactionStatus.INITIATED);
            return transactionEntityService.getDao().save(transaction);
     }
     private Boolean verifyTransaction(WalletEntity payeeWallet,WalletEntity payerWallet,
-        WalletEntity newPayeeWallet,WalletEntity newPayerWallet,Double amount){
-        Double payeeBal = payeeWallet.getBalance()+amount;
-        Double payerBal = payerWallet.getBalance()-amount;
-        if (payeeBal.equals(newPayeeWallet.getBalance()) && payerBal.equals(newPayerWallet.getBalance())){
+        WalletEntity newPayeeWallet,WalletEntity newPayerWallet){
+        if(payeeWallet.getBalance().equals(newPayeeWallet.getBalance()) &&
+            payerWallet.getBalance().equals(newPayerWallet.getBalance())){
             return true;
         }
         return false;

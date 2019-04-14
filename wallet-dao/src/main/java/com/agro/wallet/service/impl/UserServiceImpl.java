@@ -29,4 +29,9 @@ public class UserServiceImpl extends
     public UserEntity findByUserId(String userId) {
         return getDao().findByUserId(userId);
     }
+
+    @Override
+    public UserEntity findByMobileNumber(String mobileNumber) {
+        return getDao().findByMobileNumber(mobileNumber);
+    }
 }

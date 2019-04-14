@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SqlResultSetMapping;
@@ -65,13 +66,13 @@ public class TransactionEntity extends AuditedEntity<Integer> {
     @Column(name="txn_id",nullable = false)
     private String txnId;
 
-    @OneToOne(targetEntity=WalletEntity.class,cascade= CascadeType.ALL)
+    @ManyToOne(targetEntity=WalletEntity.class,cascade= CascadeType.ALL)
     @JoinColumn(name="payer_wallet_id",referencedColumnName="wallet_id",nullable = false)
-    private String payerWalletId;
+    private WalletEntity payerWalletId;
 
-    @OneToOne(targetEntity=WalletEntity.class,cascade= CascadeType.ALL)
+    @ManyToOne(targetEntity=WalletEntity.class,cascade= CascadeType.ALL)
     @JoinColumn(name="payee_wallet_id",referencedColumnName="wallet_id",nullable = false)
-    private String payeeWalletId;
+    private WalletEntity payeeWalletId;
 
     @Column(name="amount",nullable = false)
     private Double amount;

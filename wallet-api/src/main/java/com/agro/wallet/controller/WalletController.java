@@ -39,7 +39,7 @@ public class WalletController {
 
 
     @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
-        "Api to register user", notes = "The API is used to add money to the wallet",
+        "Api to add money in wallet", notes = "The API is used to add money to the wallet",
         produces = "application/json")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Successful")})
@@ -47,13 +47,13 @@ public class WalletController {
 
     public WalletApiResponse addMoney(@Valid @RequestBody AddMoneyInput
         addMoneyInput) {
-        log.info("Inside walletcontroller ,Start of addMoney");
+        log.info("Inside walletController ,Start of addMoney");
 
         return ResponseUtils.successResponse(addMoneyInputApi.execute(addMoneyInput));
     }
 
     @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
-        "Api to register user", notes = "The API is used to create/register new user",
+        "Api to credit/debit from wallet", notes = "The API is used to transfer money",
         produces = "application/json")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Successful")})
@@ -70,7 +70,7 @@ public class WalletController {
 
     public WalletApiResponse fetchTransactions(@Valid @RequestBody FetchTxnInput
         fetchTxnInput) {
-        log.info("Inside walletcontroller ,Start of addMoney");
+        log.info("Inside walletController ,Start of fetchTransactions");
 
         return ResponseUtils.successResponse(fetchTxnApi.execute(fetchTxnInput));
     }
