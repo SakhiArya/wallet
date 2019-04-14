@@ -4,4 +4,6 @@ import com.agro.wallet.entities.TransactionEntity;
 
 public interface TransactionEntityService extends BaseService<TransactionEntity,Integer> {
 
+
+
 }

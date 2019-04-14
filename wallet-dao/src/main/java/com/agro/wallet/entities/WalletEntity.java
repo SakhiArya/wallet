@@ -9,18 +9,20 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="wallet")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class WalletEntity extends AuditedEntity<Integer> {
 
     private static final long serialVersionUID = 1L;
@@ -40,35 +42,4 @@ public class WalletEntity extends AuditedEntity<Integer> {
     @Column(name="currency",nullable = false)
     private CurrencyType currency;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getWalletId() {
-        return walletId;
-    }
-
-    public void setWalletId(String walletId) {
-        this.walletId = walletId;
-    }
-
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
-
-    public CurrencyType getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(CurrencyType currency) {
-        this.currency = currency;
-    }
 }

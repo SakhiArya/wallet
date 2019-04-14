@@ -2,8 +2,10 @@ package com.agro.wallet.controller;
 
 
 import com.agro.wallet.apis.AddMoneyInputApi;
+import com.agro.wallet.apis.PaymentApi;
 import com.agro.wallet.constants.C;
 import com.agro.wallet.request.AddMoneyInput;
+import com.agro.wallet.request.PaymentInput;
 import com.agro.wallet.request.ResponseUtils;
 import com.agro.wallet.response.WalletApiResponse;
 import io.swagger.annotations.Api;
@@ -25,7 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class WalletController {
 
     @Autowired
-    AddMoneyInputApi addMoneyInputApi;
+    private AddMoneyInputApi addMoneyInputApi;
+
+    @Autowired
+    private PaymentApi paymentApi;
 
 
     @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
@@ -40,6 +45,21 @@ public class WalletController {
         log.info("Inside addMoney ,Start of addMoney");
 
         return ResponseUtils.successResponse(addMoneyInputApi.execute(addMoneyInput));
+    }
+
+
+    @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
+        "Api to register user", notes = "The API is used to create/register new user",
+        produces = "application/json")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful")})
+    @RequestMapping(method = RequestMethod.POST, value = C.API_PAYMENT)
+
+    public WalletApiResponse payment(@Valid @RequestBody PaymentInput
+        paymentInput) {
+        log.info("Inside Pay , going to start Payment");
+
+        return ResponseUtils.successResponse(paymentApi.execute(paymentInput));
     }
 
 }
