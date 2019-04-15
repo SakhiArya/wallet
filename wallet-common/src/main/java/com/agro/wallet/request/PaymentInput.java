@@ -14,5 +14,6 @@ public class PaymentInput extends ApiRequest{
     private Double amount;
     private String payeeMobileNumber;
     private String note;
+    private String txnId;
 
 }

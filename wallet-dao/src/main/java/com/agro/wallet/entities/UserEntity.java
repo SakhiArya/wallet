@@ -51,6 +51,9 @@ public class UserEntity extends AuditedEntity<Integer> {
     @Column(name="last_name")
     private String lastName;
 
+    @Column(name="display_name")
+    private String displayName;
+
     @Column(name="mobile_number",nullable = false)
     private String mobileNumber;
 

@@ -13,5 +13,8 @@ public interface ApiRequestMapping {
     String API_ADDMONEY ="/addMoney";
 
     String API_PAYMENT ="/payment";
+
+    String API_FETCH_PAYEE_NAME ="/fetchPayeeName";
+
     String API_FETCH_TXNS ="/getTransactions";
 }

@@ -2,6 +2,7 @@ package com.agro.wallet.impl;
 
 
 import com.agro.wallet.FetchTxnService;
+import com.agro.wallet.entities.TransactionEntity;
 import com.agro.wallet.request.FetchTxnInput;
 import com.agro.wallet.response.FetchTxnOutput;
 import com.agro.wallet.response.Transactions;
@@ -29,5 +30,10 @@ public class FetchTxnServiceImpl implements FetchTxnService {
             .getWalletId());
 
         return FetchTxnOutput.builder().transactions(transactions).build();
+    }
+
+    @Override
+    public TransactionEntity fetchOne(String txnId){
+        return transactionEntityService.findByTxnId(txnId);
     }
 }

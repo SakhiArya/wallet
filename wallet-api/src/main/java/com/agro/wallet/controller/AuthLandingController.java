@@ -56,7 +56,7 @@ public class AuthLandingController {
 
 
     @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
-        "Api to register user", notes = "The API is used to validate OTP",
+        "Api to verify user", notes = "The API is used to validate OTP",
         produces = "application/json")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Successful")})
@@ -71,7 +71,7 @@ public class AuthLandingController {
 
 
     @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
-        "Api to register user", notes = "The API is used to validate OTP",
+        "Api to login user", notes = "The API is used  for login ",
         produces = "application/json")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Successful")})

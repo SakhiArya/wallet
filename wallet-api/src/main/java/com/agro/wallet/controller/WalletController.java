@@ -2,6 +2,7 @@ package com.agro.wallet.controller;
 
 
 import com.agro.wallet.apis.AddMoneyInputApi;
+import com.agro.wallet.apis.PayeeNameApi;
 import com.agro.wallet.apis.PaymentApi;
 import com.agro.wallet.constants.C;
 import com.agro.wallet.request.AddMoneyInput;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value ="/")
-@Api(value = "", description = "this controller is for wallet transactions ")
+@Api(value = "All the basic wallet operations ", description = "this controller is for wallet transactions ")
 @Slf4j
 public class WalletController {
 
@@ -33,6 +34,9 @@ public class WalletController {
 
     @Autowired
     private PaymentApi paymentApi;
+
+    @Autowired
+    private PayeeNameApi payeeNameApi;
 
     @Autowired
     FetchTxnApi fetchTxnApi;
@@ -64,6 +68,20 @@ public class WalletController {
         log.info("Inside Pay , going to start Payment");
 
         return ResponseUtils.successResponse(paymentApi.execute(paymentInput));
+    }
+
+    @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
+        "Api to fetch Payee Name", notes = "The API is used to display name of Payee",
+        produces = "application/json")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful")})
+    @RequestMapping(method = RequestMethod.POST, value = C.API_FETCH_PAYEE_NAME)
+
+    public WalletApiResponse fetchPayeeName(@Valid @RequestBody PaymentInput
+        paymentInput) {
+        log.info("Inside fetch , going to fetch payee name");
+
+        return ResponseUtils.successResponse(payeeNameApi.execute(paymentInput));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = C.API_FETCH_TXNS)

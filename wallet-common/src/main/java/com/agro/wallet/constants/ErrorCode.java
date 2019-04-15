@@ -3,6 +3,7 @@ package com.agro.wallet.constants;
 import lombok.Getter;
 
 public enum ErrorCode {
+    WALLET_STATUS("cannot update terminal Status"),
     UNKNOWN_EXCEPTION("Exception is unknown"),
     INVALID_INPUT("Invalid input"),
     INVALID_OTP("Invalid OTP"),

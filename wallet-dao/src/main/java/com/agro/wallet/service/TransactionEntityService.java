@@ -7,4 +7,5 @@ import java.util.List;
 public interface TransactionEntityService extends BaseService<TransactionEntity,Integer> {
 
     List<Transactions> getAllTransactionsForWalletId(String walletId);
+    TransactionEntity findByTxnId(String txnId);
 }

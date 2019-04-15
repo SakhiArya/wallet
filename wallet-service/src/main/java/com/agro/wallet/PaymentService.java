@@ -7,7 +7,7 @@ import com.agro.wallet.response.PaymentOutput;
 
 public interface PaymentService {
 
-     PaymentOutput payment(PaymentInput paymentInput, WalletEntity payeeWallet,WalletEntity payerWallet,TransactionEntity transaction);
+     PaymentOutput payment(PaymentInput paymentInput, WalletEntity payeeWallet,WalletEntity payerWallet,String txnId);
      TransactionEntity createTransaction(PaymentInput paymentInput, WalletEntity payeeWallet,WalletEntity payerWallet);
 
 }

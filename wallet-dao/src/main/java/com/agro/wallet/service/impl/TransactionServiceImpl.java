@@ -26,4 +26,9 @@ public class TransactionServiceImpl extends
     public List<Transactions> getAllTransactionsForWalletId(String walletId) {
         return transactionRepository.getAllTransactionForWalletId(walletId);
     }
+
+    @Override
+    public TransactionEntity findByTxnId(String txnId) {
+        return transactionRepository.findByTxnId(txnId);
+    }
 }
