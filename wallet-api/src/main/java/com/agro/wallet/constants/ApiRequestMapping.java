@@ -17,4 +17,6 @@ public interface ApiRequestMapping {
     String API_FETCH_PAYEE_NAME ="/fetchPayeeName";
 
     String API_FETCH_TXNS ="/getTransactions";
+
+    String API_CANCEL_TXNS ="/cancelTransactions";
 }

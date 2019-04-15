@@ -2,10 +2,12 @@ package com.agro.wallet.controller;
 
 
 import com.agro.wallet.apis.AddMoneyInputApi;
+import com.agro.wallet.apis.CancelTransactionApi;
 import com.agro.wallet.apis.PayeeNameApi;
 import com.agro.wallet.apis.PaymentApi;
 import com.agro.wallet.constants.C;
 import com.agro.wallet.request.AddMoneyInput;
+import com.agro.wallet.request.CancelTransactionInput;
 import com.agro.wallet.request.PaymentInput;
 import com.agro.wallet.apis.FetchTxnApi;
 import com.agro.wallet.request.FetchTxnInput;
@@ -39,7 +41,10 @@ public class WalletController {
     private PayeeNameApi payeeNameApi;
 
     @Autowired
-    FetchTxnApi fetchTxnApi;
+    private FetchTxnApi fetchTxnApi;
+
+    @Autowired
+    private CancelTransactionApi cancelTransactionApi;
 
 
     @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
@@ -84,6 +89,12 @@ public class WalletController {
         return ResponseUtils.successResponse(payeeNameApi.execute(paymentInput));
     }
 
+    @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
+        "Api to fetch Transactions", notes = "The API is used to fetch all Transactions of user",
+        produces = "application/json")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful")})
+
     @RequestMapping(method = RequestMethod.POST, value = C.API_FETCH_TXNS)
 
     public WalletApiResponse fetchTransactions(@Valid @RequestBody FetchTxnInput
@@ -91,6 +102,21 @@ public class WalletController {
         log.info("Inside walletController ,Start of fetchTransactions");
 
         return ResponseUtils.successResponse(fetchTxnApi.execute(fetchTxnInput));
+    }
+
+    @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
+        "Api to cancel Transactions", notes = "The API is used to cancel ongoing transaction",
+        produces = "application/json")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful")})
+
+    @RequestMapping(method = RequestMethod.POST, value = C.API_CANCEL_TXNS)
+
+    public WalletApiResponse cancelTransaction(@Valid @RequestBody CancelTransactionInput
+        cancelTransactionInput) {
+        log.info("Inside cancelTransaction ,going to cancel Transaction");
+
+        return ResponseUtils.successResponse(cancelTransactionApi.execute(cancelTransactionInput));
     }
 
 
