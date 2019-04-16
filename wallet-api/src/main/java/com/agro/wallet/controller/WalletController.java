@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value ="/")
+@RequestMapping(value =C.CONTROLLER_WALLET)
 @Api(value = "All the basic wallet operations ", description = "this controller is for wallet transactions ")
 @Slf4j
 public class WalletController {

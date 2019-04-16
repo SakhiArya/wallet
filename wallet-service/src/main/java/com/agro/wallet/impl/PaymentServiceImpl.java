@@ -37,12 +37,6 @@ public class PaymentServiceImpl implements PaymentService {
     public PaymentOutput payment(PaymentInput paymentInput, WalletEntity payeeWallet,WalletEntity payerWallet,String txnId) {
 
         updateTransactionStatus(txnId,TransactionStatus.PENDING);
-        try {
-            System.out.println("going to sleep");
-            Thread.sleep(30000);
-            System.out.println("awake now");
-        }
-        catch (Exception e){}
 
         Boolean isTransactionSuccessful = debitAndCredit(payerWallet,payeeWallet,paymentInput.getAmount(),txnId);
         if (!isTransactionSuccessful) {

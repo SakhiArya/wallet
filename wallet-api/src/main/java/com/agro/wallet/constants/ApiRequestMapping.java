@@ -10,6 +10,8 @@ public interface ApiRequestMapping {
 
     String CONTROLLER_USER = "/user";
 
+    String CONTROLLER_WALLET = "/wallet";
+
     String API_ADDMONEY ="/addMoney";
 
     String API_PAYMENT ="/payment";
