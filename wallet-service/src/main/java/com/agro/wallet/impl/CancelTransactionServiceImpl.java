@@ -25,7 +25,7 @@ public class CancelTransactionServiceImpl implements CancelTransactionService {
     @Override
     public CancelTransactionOutput cancelTransaction(
         CancelTransactionInput cancelTransactionInput) {
-        TransactionEntity transaction = fetchTxnService.fetchOne(cancelTransactionInput.getTxnId());
+        TransactionEntity transaction;
         CancelTransactionOutput cancelTransactionOutput =CancelTransactionOutput.builder()
             .txnId(cancelTransactionInput.getTxnId())
             //.origTransactionStatus(transaction.getStatus())

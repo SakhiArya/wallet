@@ -105,7 +105,8 @@ public class PaymentServiceImpl implements PaymentService {
     public Boolean updateTransactionStatus(String txnId,TransactionStatus transactionStatus)
         throws WalletException{
         TransactionEntity transaction = fetchTxnService.fetchOne(txnId);
-        if (!TransactionStatus.terminalStatus.contains(transaction.getStatus())){
+        if (null!=transaction &&!TransactionStatus.terminalStatus.contains(transaction.getStatus
+            ())){
             transaction.setStatus(transactionStatus);
             transactionEntityService.getDao().save(transaction);
             return true;

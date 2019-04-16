@@ -10,6 +10,7 @@ public enum ErrorCode {
     SQL_EXCEPTION("Data Integrity Exception"),
     WALLET_EXCEPTION("Wallet exception occured"),
     INVALID_TOKEN("Invalid Request"),
+    INVALID_REQUEST("Invalid Request"),
     INVALID_PASSWORD("Invalid Password"),
     INVALID_USER("you are not registered with us , kindly register first "),
     UNAUTH_USER("Unauthorized user"),

@@ -106,7 +106,8 @@ public class WalletApiBaseTest {
 
         //submitOtpForUser1
 
-        String inputJsonForSubmitOtp = mapToJson(getSubmitRequestForValidatingOTP(otpForSubmitOtpApi,tokenForSubmitOtpApi));
+        String inputJsonForSubmitOtp = mapToJson(getSubmitRequestForValidatingOTP
+            (otpForSubmitOtpApi,tokenForSubmitOtpApi,mobileUserOne));
 
         MvcResult mvcResultForSubmitOtp = getMvcResult(submitUri,inputJsonForSubmitOtp);
 
@@ -119,6 +120,7 @@ public class WalletApiBaseTest {
         UserEntity ifUserPresent = userEntityService.findIfUserAlreadyExists
             (getUserOneForRegisteration().getMobileNumber());
 
+        if (null!=ifUserPresent && null != ifUserPresent.getMobileNumber())
         assertEquals(mobileUserOne, ifUserPresent.getMobileNumber());
 
 
@@ -163,7 +165,7 @@ public class WalletApiBaseTest {
         //submitOtpForUser2
 
         String inputJsonForSubmitOtpUser2 = mapToJson(getSubmitRequestForValidatingOTP
-            (otpForSubmitOtpApiUser2,tokenForSubmitOtpApiUser2));
+            (otpForSubmitOtpApiUser2,tokenForSubmitOtpApiUser2,mobileUserTwo));
 
         MvcResult mvcResultForSubmitOtpUser2 = getMvcResult(submitUri,inputJsonForSubmitOtpUser2);
 
@@ -229,9 +231,10 @@ public class WalletApiBaseTest {
         return walletRegisterationInput;
     }
 
-    protected SubmitOtpInput getSubmitRequestForValidatingOTP(String otp,String token){
+    protected SubmitOtpInput getSubmitRequestForValidatingOTP(String otp,String token,String
+        mobileNumber){
 
-        SubmitOtpInput submitOtpInput = SubmitOtpInput.builder().otp(otp).token(token).build();
+        SubmitOtpInput submitOtpInput = SubmitOtpInput.builder().mobileNumber(mobileNumber).otp(otp).token(token).build();
 
         return submitOtpInput;
     }
@@ -267,11 +270,13 @@ public class WalletApiBaseTest {
 
         loginEntityService.deleteByMobileNumber(mobileUserOne);
         loginEntityService.deleteByMobileNumber(mobileUserTwo);
+        loginEntityService.getDao().flush();
         UserEntity userEntityUser1 = userEntityService.findByMobileNumber(mobileUserOne);
         UserEntity userEntityUser2 = userEntityService.findByMobileNumber(mobileUserTwo);
 
         userEntityService.deleteByMobileNumber(mobileUserOne);
         userEntityService.deleteByMobileNumber(mobileUserTwo);
+        userEntityService.getDao().flush();
         if(null!=userEntityUser1 && null !=userEntityUser1.getAddressId()
             && null!=userEntityUser1.getAddressId().getAddressId())
         addressEntityService.deleteByAddressId(userEntityUser1.getAddressId().getAddressId());
@@ -280,6 +285,7 @@ public class WalletApiBaseTest {
             && null!=userEntityUser2.getAddressId().getAddressId())
         addressEntityService.deleteByAddressId(userEntityUser2.getAddressId().getAddressId());
 
+        addressEntityService.getDao().flush();
 
         if(null!=userEntityUser1 && null !=userEntityUser1.getWalletId()
             && null!=userEntityUser1.getWalletId().getWalletId())
@@ -288,6 +294,7 @@ public class WalletApiBaseTest {
         if(null!=userEntityUser2 && null !=userEntityUser2.getWalletId()
             && null!=userEntityUser2.getWalletId().getWalletId())
         walletEntityService.deleteByWalletId(userEntityUser2.getWalletId().getWalletId());
+        walletEntityService.getDao().flush();
 
     }
 

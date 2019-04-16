@@ -5,6 +5,7 @@ import com.agro.wallet.apis.AddMoneyInputApi;
 import com.agro.wallet.apis.CancelTransactionApi;
 import com.agro.wallet.apis.PayeeNameApi;
 import com.agro.wallet.apis.PaymentApi;
+import com.agro.wallet.apis.WalletBalanceApi;
 import com.agro.wallet.constants.C;
 import com.agro.wallet.request.AddMoneyInput;
 import com.agro.wallet.request.CancelTransactionInput;
@@ -12,6 +13,7 @@ import com.agro.wallet.request.PaymentInput;
 import com.agro.wallet.apis.FetchTxnApi;
 import com.agro.wallet.request.FetchTxnInput;
 import com.agro.wallet.request.ResponseUtils;
+import com.agro.wallet.request.WalletBalaceInput;
 import com.agro.wallet.response.WalletApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,6 +47,9 @@ public class WalletController {
 
     @Autowired
     private CancelTransactionApi cancelTransactionApi;
+
+    @Autowired
+    private WalletBalanceApi walletBalanceApi;
 
 
     @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
@@ -117,6 +122,21 @@ public class WalletController {
         log.info("Inside cancelTransaction ,going to cancel Transaction");
 
         return ResponseUtils.successResponse(cancelTransactionApi.execute(cancelTransactionInput));
+    }
+
+    @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
+        "Api to get balance", notes = "The API is used to getBalance in wallet",
+        produces = "application/json")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful")})
+
+    @RequestMapping(method = RequestMethod.POST, value = C.API_WALLET_BALANCE)
+
+    public WalletApiResponse getBalance(@Valid @RequestBody WalletBalaceInput
+        walletBalaceInput) {
+        log.info("Inside getBalance ,going to get availabale balace in wallet");
+
+        return ResponseUtils.successResponse(walletBalanceApi.execute(walletBalaceInput));
     }
 
 

@@ -8,5 +8,7 @@ public interface WalletEntityService  extends BaseService<WalletEntity,Integer>{
 
     void deleteByWalletId(String walletId);
 
+    WalletEntity findByWalletId(String walletId);
+
 
 }

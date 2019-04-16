@@ -60,6 +60,11 @@ public class OtpValidationServiceImpl implements OtpValidationService {
          if(StringUtils.isEmpty(storedOtp) || StringUtils.isEmpty(walletRegisterationInput)){
              throw new WalletException(ErrorCode.INVALID_TOKEN);
          }
+
+         if(null==walletRegisterationInput || !walletRegisterationInput.getMobileNumber().equals
+             (submitOtpInput.getMobileNumber()))
+             throw new WalletException(ErrorCode.INVALID_REQUEST);
+
          if(storedOtp.equals(submitOtpInput.getOtp())){
 
             String mobileNumber=saveUserInDb(walletRegisterationInput);

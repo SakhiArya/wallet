@@ -48,7 +48,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             throw new WalletException(ErrorCode.UNAUTH_USER);
         }
 
-        if (!apiRequest.getMobileNumber().equals(loginData.getMobileNumber())){
+        if (null!=apiRequest&&null!=apiRequest.getMobileNumber()&&!apiRequest.getMobileNumber()
+            .equals(loginData
+            .getMobileNumber())){
             throw new WalletException(ErrorCode.UNAUTH_USER);
         }
 
