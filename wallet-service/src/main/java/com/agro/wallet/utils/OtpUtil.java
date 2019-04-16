@@ -18,7 +18,7 @@ public class OtpUtil {
 
         static String url = "http://www.way2sms.com";
 
-        public String sendCampaign(String apiKey,String secretKey,String useType, String phone, String message, String senderId){
+        public String sendTxtMessageForOTP(String apiKey,String secretKey,String useType, String phone, String message, String senderId){
             StringBuilder content = new StringBuilder();
             try{
                 // construct data
@@ -29,7 +29,7 @@ public class OtpUtil {
                 urlParameters.put("phone", phone);
                 urlParameters.put("message", URLEncoder.encode(message,"UTF-8"));
                 urlParameters.put("senderid", senderId);
-                URL obj = new URL(url + "/api/v1/sendCampaign");
+                URL obj = new URL(url + "/api/v1/sendTxtMessageForOTP");
                 // send data
                 HttpURLConnection httpConnection = (HttpURLConnection) obj.openConnection();
                 httpConnection.setDoOutput(true);

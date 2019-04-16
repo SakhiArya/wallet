@@ -10,4 +10,6 @@ public interface LoginRepository extends BaseRepository<LoginEntity, Integer>{
 
     LoginEntity findByMobileNumber(String mobileNumber);
 
+    void deleteByMobileNumber(String mobileNumber);
+
 }

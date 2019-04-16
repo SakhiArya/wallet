@@ -10,4 +10,8 @@ public interface UserEntityService extends BaseService<UserEntity,Integer> {
 
     UserEntity findByMobileNumber(String mobileNumber);
 
+    void deleteByMobileNumber(String mobileNumber);
+
+
+
 }

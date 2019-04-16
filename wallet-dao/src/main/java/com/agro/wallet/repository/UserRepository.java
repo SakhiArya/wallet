@@ -10,4 +10,6 @@ public interface UserRepository extends BaseRepository<UserEntity, Integer> {
 
     UserEntity findByUserId(String userId);
 
+    Integer deleteByMobileNumber(String mobileNumber);
+
 }

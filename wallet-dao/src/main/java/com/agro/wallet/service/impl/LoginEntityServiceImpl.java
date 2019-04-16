@@ -13,15 +13,20 @@ public class LoginEntityServiceImpl extends
 
 
     @Autowired
-    private LoginRepository conditionRepository;
+    private LoginRepository loginRepository;
 
     @Override
     public LoginRepository getDao() {
-        return conditionRepository;
+        return loginRepository;
     }
 
     @Override
     public LoginEntity findByMobileNumber(String mobileNumber) {
         return getDao().findByMobileNumber(mobileNumber);
+    }
+
+    @Override
+    public void deleteByMobileNumber(String mobileNumber) {
+        getDao().deleteByMobileNumber(mobileNumber);
     }
 }

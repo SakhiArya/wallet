@@ -25,4 +25,9 @@ public class WalletServiceImpl extends
 
         return getDao().findByWalletId(walletId);
     }
+
+    @Override
+    public void deleteByWalletId(String walletId) {
+         getDao().deleteByWalletId(walletId);
+    }
 }

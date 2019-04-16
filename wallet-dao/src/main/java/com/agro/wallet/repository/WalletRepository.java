@@ -6,4 +6,6 @@ public interface WalletRepository extends BaseRepository<WalletEntity, Integer> 
 
 
     WalletEntity findByWalletId(String walletId);
+
+    void deleteByWalletId(String walletId);
 }

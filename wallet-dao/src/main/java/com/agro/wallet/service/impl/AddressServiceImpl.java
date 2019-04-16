@@ -19,4 +19,9 @@ public class AddressServiceImpl extends
     public AddressRepository getDao() {
         return addressRepository;
     }
+
+    @Override
+    public AddressEntity deleteByAddressId(String addressId) {
+        return getDao().deleteByAddressId(addressId);
+    }
 }

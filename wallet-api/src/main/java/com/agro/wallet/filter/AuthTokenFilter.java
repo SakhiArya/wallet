@@ -40,7 +40,10 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         ApiRequest apiRequest = gson.fromJson(reader, ApiRequest.class);
         //ApiRequest apiRequest =(ApiRequest)request;
-        LoginData loginData = loginStore.getValue(apiRequest.getToken());
+        LoginData loginData = new LoginData();
+        if(null!=apiRequest && null!=apiRequest.getToken()) {
+            loginData = loginStore.getValue(apiRequest.getToken());
+        }
         if(StringUtils.isEmpty(loginData)){
             throw new WalletException(ErrorCode.UNAUTH_USER);
         }

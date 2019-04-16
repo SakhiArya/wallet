@@ -110,6 +110,7 @@ public class OtpValidationServiceImpl implements OtpValidationService {
                 .getLastName():null)
             .userId(commonUtils.generateUUID(walletRegisterationInput.getFirstName()))
             .mobileNumber(walletRegisterationInput.getMobileNumber())
+            .displayName(walletRegisterationInput.getDisplayName())
             .walletId(walletEntity).build();
 
         //UserEntity savedUserEntity=userEntityService.getDao().save(userEntity);

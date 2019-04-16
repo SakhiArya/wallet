@@ -10,15 +10,9 @@ import com.agro.wallet.service.UserEntityService;
 import com.agro.wallet.utils.JwtTokenUtil;
 import com.agro.wallet.utils.OtpUtil;
 import com.agro.wallet.utils.RegisterationTokenStore;
-import com.agro.wallet.utils.TokenUtils;
 import com.agro.wallet.utils.UserStore;
-import com.google.gson.Gson;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import java.util.Date;
 import java.util.Random;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.asm.Advice.Unused;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -75,7 +69,7 @@ public class RegistrationServiceImpl implements RegisterationService {
 
         String JWT =jwtTokenUtil.generateJWT(walletRegisterationInput);
         String otp = generateOTP();
-        String success = otpUtil.sendCampaign(apiKey,secretKey,useType,walletRegisterationInput
+        otpUtil.sendTxtMessageForOTP(apiKey,secretKey,useType,walletRegisterationInput
                 .getMobileNumber()
                 .toString(),
             messageTemplate+otp,senderId);
