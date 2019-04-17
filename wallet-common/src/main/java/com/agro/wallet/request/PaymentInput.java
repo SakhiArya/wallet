@@ -20,7 +20,6 @@ public class PaymentInput extends ApiRequest {
     private String payeeMobileNumber;
     private String note;
 
-    @NotNull
     private String txnId;
 
 }
