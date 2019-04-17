@@ -27,12 +27,12 @@ create database `e-wallet`;
 * You can run the jar in command line using "java -jar "
 
 ## Points to be noted 
-* once the server is up, using swagger(http://localhost:9921/wallet-server/swagger-ui.html#/) one can see all the APIs exposed ,refrence:(https://github.com/SakhiArya/wallet/blob/development/refrence/swagger).
-* Swagger will list all the contracts, refrence: https://github.com/SakhiArya/wallet/blob/development/refrence/login.png, one will be able to substitute the values and test(use 'try it out' option in swagger).
+* once the server is up, using swagger(http://localhost:9921/wallet-server/swagger-ui.html#/) one can see all the APIs exposed ,refrence:[swagger](https://github.com/SakhiArya/wallet/blob/development/refrence/swagger).
+* Swagger will list all the contracts, refrence: [Contracts example](https://github.com/SakhiArya/wallet/blob/development/refrence/login.png). , one will be able to substitute the values and test(use 'try it out' option in swagger).
 * Once you run the server the tables would automatically be created in the schema you created, hence if you want to persist data which you created during test/trial please make sure to comment out create command in "HibernateConfig.java"-Line 90:
 "properties.put(Environment.HBM2DDL_AUTO, "create");" before you run the server again
 * Integration tests can be found under wallet/wallet-api/src/test/java/ApiTest folder.
-* ER Diagram https://github.com/SakhiArya/wallet/blob/development/refrence/e-wallet-ERDiagram.png
+* [ER Diagram](https://github.com/SakhiArya/wallet/blob/development/refrence/e-wallet-ERDiagram.png)
 
 ## Brief About Apis and sequence to be followed .
 
