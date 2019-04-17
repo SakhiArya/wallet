@@ -20,7 +20,7 @@ create database `e-wallet`;
 * spring.datasource.password
 
 
-##NOTES:
+## NOTES:
 
 #### once the server is up, using swagger(http://localhost:9921/wallet-server/swagger-ui.html#/) one can see all the APIs exposed ,refrence:swagger file under refrence folder 
 #### which will list all the contracts, example: login.png under refrence folder one will be able to test by substituting the values and test.
