@@ -5,6 +5,7 @@ import com.agro.wallet.FetchTxnService;
 import com.agro.wallet.entities.TransactionEntity;
 import com.agro.wallet.request.FetchTxnInput;
 import com.agro.wallet.response.FetchTxnOutput;
+import com.agro.wallet.response.ReceivedTransactions;
 import com.agro.wallet.response.Transactions;
 import com.agro.wallet.service.TransactionEntityService;
 import com.agro.wallet.utils.LoginData;
@@ -29,7 +30,10 @@ public class FetchTxnServiceImpl implements FetchTxnService {
         List<Transactions> transactions=transactionEntityService.getAllTransactionsForWalletId(loginData
             .getWalletId());
 
-        return FetchTxnOutput.builder().transactions(transactions).build();
+        List<ReceivedTransactions> receivedTransactions= transactionEntityService
+            .getAllReceivedTransactionForWalletId(loginData.getWalletId());
+
+        return FetchTxnOutput.builder().transactions(transactions).receivedTransactions(receivedTransactions).build();
     }
 
     @Override

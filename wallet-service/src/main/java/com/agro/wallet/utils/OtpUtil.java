@@ -20,6 +20,7 @@ public class OtpUtil {
 
         public String sendTxtMessageForOTP(String apiKey,String secretKey,String useType, String phone, String message, String senderId){
             StringBuilder content = new StringBuilder();
+            log.info("inside sendTxtMessageForOTP");
             try{
                 // construct data
                 JSONObject urlParameters = new JSONObject();
@@ -39,8 +40,10 @@ public class OtpUtil {
                 // get the response
                 BufferedReader bufferedReader = null;
                 if (httpConnection.getResponseCode() == 200) {
+                    log.info("receieved 200 from ways 2 sms");
                     bufferedReader = new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
                 } else {
+                    log.info("receieved failure from ways 2 sms");
                     bufferedReader = new BufferedReader(new InputStreamReader(httpConnection.getErrorStream()));
                 }
 

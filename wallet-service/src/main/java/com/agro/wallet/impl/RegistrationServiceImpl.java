@@ -69,6 +69,7 @@ public class RegistrationServiceImpl implements RegisterationService {
 
         String JWT =jwtTokenUtil.generateJWT(walletRegisterationInput);
         String otp = generateOTP();
+        log.info("otp {} ",otp);
         otpUtil.sendTxtMessageForOTP(apiKey,secretKey,useType,walletRegisterationInput
                 .getMobileNumber()
                 .toString(),

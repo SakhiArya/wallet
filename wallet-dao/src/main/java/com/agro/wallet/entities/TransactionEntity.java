@@ -1,6 +1,7 @@
 package com.agro.wallet.entities;
 
 import com.agro.wallet.constants.TransactionStatus;
+import com.agro.wallet.response.ReceivedTransactions;
 import com.agro.wallet.response.Transactions;
 import com.agro.wallet.util.Queries;
 import javax.persistence.CascadeType;
@@ -52,6 +53,29 @@ import lombok.Setter;
     name = "TransactionEntity.getAllTransactionForWalletId",
     query = Queries.getTransactions,
     resultSetMapping = "transactions")
+
+
+
+@SqlResultSetMapping(
+    name = "receivedTransactions",
+    classes = {
+        @ConstructorResult(
+            targetClass = ReceivedTransactions.class,
+            columns = {
+                @ColumnResult(name = "amount"),
+                @ColumnResult(name = "status"),
+                @ColumnResult(name = "note"),
+                @ColumnResult(name = "receivedOn"),
+                @ColumnResult(name = "receivedFrom")
+            }
+        )
+    }
+)
+@NamedNativeQuery(
+    name = "TransactionEntity.getAllReceivedTransactionForWalletId",
+    query = Queries.getReceivedTransactions,
+    resultSetMapping = "receivedTransactions")
+
 @Getter
 @Setter
 public class TransactionEntity extends AuditedEntity<Integer> {

@@ -87,7 +87,7 @@ public class HibernateConfig {
         properties.put(Environment.USE_QUERY_CACHE, false);
         properties.put(Environment.USE_SECOND_LEVEL_CACHE, false);
         //properties.put(Environment.HBM2DDL_AUTO, "validate");
-        //properties.put(Environment.HBM2DDL_AUTO, "create");
+        properties.put(Environment.HBM2DDL_AUTO, "create");
         properties.put(Environment.DIALECT,
             "org.hibernate.dialect.MySQL5InnoDBDialect");
         return properties;

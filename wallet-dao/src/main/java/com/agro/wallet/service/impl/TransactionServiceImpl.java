@@ -2,6 +2,7 @@ package com.agro.wallet.service.impl;
 
 import com.agro.wallet.entities.TransactionEntity;
 import com.agro.wallet.repository.TransactionRepository;
+import com.agro.wallet.response.ReceivedTransactions;
 import com.agro.wallet.response.Transactions;
 import com.agro.wallet.service.TransactionEntityService;
 import java.util.List;
@@ -25,6 +26,11 @@ public class TransactionServiceImpl extends
     @Override
     public List<Transactions> getAllTransactionsForWalletId(String walletId) {
         return transactionRepository.getAllTransactionForWalletId(walletId);
+    }
+
+    @Override
+    public List<ReceivedTransactions> getAllReceivedTransactionForWalletId(String walletId) {
+        return transactionRepository.getAllReceivedTransactionForWalletId(walletId);
     }
 
     @Override

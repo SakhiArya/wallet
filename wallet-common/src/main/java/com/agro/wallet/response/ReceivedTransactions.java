@@ -18,7 +18,7 @@ public class ReceivedTransactions {
     private Double amount;
     private String status;
     private String note;
-    private Date paidOn;
+    private Date receivedOn;
     private String receivedFrom;
 
 }

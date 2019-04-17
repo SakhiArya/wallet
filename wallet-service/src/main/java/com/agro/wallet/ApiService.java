@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 public abstract class ApiService<I extends ApiRequest, O extends ApiResponse> {
 
@@ -17,6 +18,7 @@ public abstract class ApiService<I extends ApiRequest, O extends ApiResponse> {
 
     public abstract O callApi(I input) throws WalletException;
 
+    @Transactional
     public O execute(I apiInput) throws WalletException {
         Date startTime = new Date();
         logApi(getApiName() + ": " + ObjectUtils.getStringJSONWithoutNullValues(apiInput), true);
