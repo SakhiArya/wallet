@@ -24,7 +24,7 @@ create database `e-wallet`;
 * Import the project into your favourite IDE if you want to run in your IDE itself.
 * Build the project using "mvn clean install" command (have used maven as building tool).
 * Go to WalletMain.java right click and choose "run WalletMain.main()" or debug if you want to debug .
-* You can run the jar in command line using "java -jar "
+* You can run the jar in command line using "java -jar wallet-api.jar" under "/wallet/wallet-api/target"
 
 ## Points to be noted 
 * once the server is up, using [swagger](http://localhost:9921/wallet-server/swagger-ui.html#/) one can see all the APIs exposed ,refrence:[swagger-Controllers](https://github.com/SakhiArya/wallet/blob/development/refrence/swagger).
