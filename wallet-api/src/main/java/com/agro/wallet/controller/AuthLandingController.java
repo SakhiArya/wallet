@@ -2,12 +2,15 @@ package com.agro.wallet.controller;
 
 
 import com.agro.wallet.apis.LoginApi;
+import com.agro.wallet.apis.LogoutApi;
 import com.agro.wallet.apis.OtpValidationApi;
 import com.agro.wallet.apis.RegisterationApi;
 import com.agro.wallet.constants.C;
 import com.agro.wallet.request.LoginInput;
+import com.agro.wallet.request.LogoutInput;
 import com.agro.wallet.request.ResponseUtils;
 import com.agro.wallet.request.SubmitOtpInput;
+import com.agro.wallet.request.WalletBalaceInput;
 import com.agro.wallet.request.WalletRegisterationInput;
 import com.agro.wallet.response.WalletApiResponse;
 import io.swagger.annotations.Api;
@@ -36,6 +39,10 @@ public class AuthLandingController {
 
     @Autowired
     LoginApi loginApi;
+
+
+    @Autowired
+    private LogoutApi logoutApi;
 
 
     @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
@@ -83,6 +90,21 @@ public class AuthLandingController {
         log.info("Inside AuthLandingController ,Start of login with mobile number {} ", loginInput.getMobileNumber
             ());
         return ResponseUtils.successResponse(loginApi.execute(loginInput));
+    }
+
+    @ApiOperation(httpMethod = "POST", consumes = "application/json", value =
+        "Api to logout", notes = "The API is used to logout from wallet",
+        produces = "application/json")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful")})
+
+    @RequestMapping(method = RequestMethod.POST, value = C.API_LOGOUT)
+
+    public WalletApiResponse logout(@Valid @RequestBody LogoutInput
+        logoutInput) {
+        log.info("Inside logout ,AuthLandingController");
+
+        return ResponseUtils.successResponse(logoutApi.execute(logoutInput));
     }
 
 

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.agro.wallet.WalletMain;
 import com.agro.wallet.constants.C;
+import com.agro.wallet.entities.LoginEntity;
 import com.agro.wallet.entities.UserEntity;
 import com.agro.wallet.request.Address;
 import com.agro.wallet.request.LoginInput;
@@ -73,9 +74,6 @@ public class WalletApiBaseTest {
 
     @Autowired
     private RegisterationTokenStore tokenStore;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     private UserEntityService userEntityService;
@@ -295,6 +293,8 @@ public class WalletApiBaseTest {
             && null!=userEntityUser2.getWalletId().getWalletId())
         walletEntityService.deleteByWalletId(userEntityUser2.getWalletId().getWalletId());
         walletEntityService.getDao().flush();
+        tokenStore.remove(tokenUserOne);
+        tokenStore.remove(tokenUserTwo);
 
     }
 

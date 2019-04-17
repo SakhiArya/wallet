@@ -139,7 +139,4 @@ public class WalletController {
         return ResponseUtils.successResponse(walletBalanceApi.execute(walletBalaceInput));
     }
 
-
-
-
 }

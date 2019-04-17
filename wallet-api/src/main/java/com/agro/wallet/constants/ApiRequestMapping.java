@@ -8,6 +8,8 @@ public interface ApiRequestMapping {
 
     String API_LOGIN ="/login";
 
+    String API_LOGOUT ="/logout";
+
     String CONTROLLER_USER = "/user";
 
     String CONTROLLER_WALLET = "/wallet";
