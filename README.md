@@ -8,7 +8,7 @@ Feel Free to contribute or suggest.
 ### Install Mysql Database and run following script
 
 ```sql
-create database e-wallet;
+create database `e-wallet`;
 ```
 
 ### Update following fields in application.properties (/wallet/wallet-api/src/main/resources)
