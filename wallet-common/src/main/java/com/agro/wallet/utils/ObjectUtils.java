@@ -2,7 +2,6 @@ package com.agro.wallet.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.lang.reflect.Method;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +20,7 @@ public class ObjectUtils {
     }
 
     private static ObjectMapper _getMapper2() {
-        ObjectMapper objectMapper= new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(Include.NON_NULL);
         return objectMapper;
     }

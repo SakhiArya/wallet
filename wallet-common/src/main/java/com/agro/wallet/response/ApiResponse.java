@@ -2,26 +2,31 @@ package com.agro.wallet.response;
 
 
 import com.agro.wallet.constants.ErrorCode;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 public class ApiResponse {
 
+    @JsonInclude(Include.NON_NULL)
     private ErrorCode errorCode;
 
+    @JsonInclude(Include.NON_NULL)
     private String errorMessage;
 
-    public ApiResponse(){}
+    @JsonInclude(Include.NON_NULL)
+    private String message;
 
-    public ApiResponse(ErrorCode errorCode,String errorMessage){
-        this.errorMessage=errorMessage;
-        this.errorCode=errorCode;
+    public ApiResponse() {
+    }
+
+    public ApiResponse(ErrorCode errorCode, String errorMessage, String message) {
+        this.errorMessage = errorMessage;
+        this.errorCode = errorCode;
+        this.message = message;
     }
 
 }

@@ -1,16 +1,26 @@
 package com.agro.wallet.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
 public class ApiRequest {
 
+    private String token;
+
+    @Size(min = 10, max = 10)
+    private String mobileNumber;
+
+    public ApiRequest(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public ApiRequest(String mobileNumber, String token) {
+        this.token = token;
+        this.mobileNumber = mobileNumber;
+    }
 }
