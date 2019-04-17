@@ -20,10 +20,15 @@ create database e-wallet;
 * spring.datasource.password
 
 
-NOTES:
+##NOTES:
 
-## once the server is up, using swagger(http://localhost:9921/wallet-server/swagger-ui.html#/) one can see all the APIs exposed ,refrence:swagger file under refrence folder 
-## which will list all the contracts, example: login.png under refrence folder one will be able to test by substituting the values and test.
+#### once the server is up, using swagger(http://localhost:9921/wallet-server/swagger-ui.html#/) one can see all the APIs exposed ,refrence:swagger file under refrence folder 
+#### which will list all the contracts, example: login.png under refrence folder one will be able to test by substituting the values and test.
+#### once you run the server the DB would automatically be created in the schema you created, hence if you want to persist data which you created during test/trial please make sure to comment out create command in "HibernateConfig.java" before you run the server again 
+
+#### Integration tests can be found under wallet/wallet-api/src/test/java/ApiTest folder
+
+#### adding ER -Diagram under refrence folder as e-wallet-ERDiagram.png.
 
 
 1) For login, one must be a registered user.
@@ -40,11 +45,8 @@ NOTES:
 10) getTransactions fetches you the history of transactions made.
 11) logout api invalidates the token and logs out the user.
 
-## once you run the server the DB would automatically be created in the schema you created, hence if you want to persist data which you created during test/trial please make sure to comment out create command in "HibernateConfig.java" before you run the server again 
 
-## Integration tests can be found under wallet/wallet-api/src/test/java/ApiTest folder
 
-adding ER -Diagram under refrence folder as e-wallet-ERDiagram.png.
 
 
 
