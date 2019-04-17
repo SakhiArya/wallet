@@ -3,7 +3,6 @@ package com.agro.wallet.apis;
 
 import com.agro.wallet.ApiService;
 import com.agro.wallet.LogoutService;
-import com.agro.wallet.WalletException;
 import com.agro.wallet.request.LogoutInput;
 import com.agro.wallet.response.LogoutOutput;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ public class LogoutApi extends ApiService<LogoutInput, LogoutOutput> {
     LogoutService logoutService;
 
     @Override
-    public LogoutOutput callApi(LogoutInput input){
+    public LogoutOutput callApi(LogoutInput input) {
         return logoutService.logoutUser(input);
     }
 }

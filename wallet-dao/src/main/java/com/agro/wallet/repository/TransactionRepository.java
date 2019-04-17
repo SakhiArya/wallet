@@ -1,6 +1,5 @@
 package com.agro.wallet.repository;
 
-import com.agro.wallet.constants.TransactionStatus;
 import com.agro.wallet.entities.TransactionEntity;
 import com.agro.wallet.response.ReceivedTransactions;
 import com.agro.wallet.response.Transactions;

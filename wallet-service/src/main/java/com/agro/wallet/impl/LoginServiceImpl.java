@@ -37,26 +37,27 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public LoginOutput loginUser(LoginInput loginInput) {
 
-        log.info("Start loginUser for {} :",loginInput.getMobileNumber());
+        log.info("Start loginUser for {} :", loginInput.getMobileNumber());
 
         LoginEntity loginEntity = loginEntityService.findByMobileNumber(loginInput
             .getMobileNumber());
-        if(StringUtils.isEmpty(loginEntity)){
+        if (StringUtils.isEmpty(loginEntity)) {
             throw new WalletException(ErrorCode.INVALID_USER);
         }
         UserEntity userEntity = userEntityService.findByUserId(loginEntity.getUserId().getUserId());
 
-
-        if (!loginInput.getPassword().equals(loginEntity.getPassword()))
+        if (!loginInput.getPassword().equals(loginEntity.getPassword())) {
             throw new WalletException(ErrorCode.INVALID_PASSWORD);
+        }
 
-        LoginData loginData = LoginData.builder().mobileNumber(loginEntity.getMobileNumber()).walletId
-            (userEntity.getWalletId().getWalletId())
+        LoginData loginData = LoginData.builder().mobileNumber(loginEntity.getMobileNumber())
+            .walletId
+                (userEntity.getWalletId().getWalletId())
             .build();
 
         String token = jwtTokenUtil.generateJWT(loginData);
-        loginStore.put(token,loginData);
-        log.info("end loginUser {} :",loginInput.getMobileNumber());
+        loginStore.put(token, loginData);
+        log.info("end loginUser {} :", loginInput.getMobileNumber());
         return LoginOutput.builder().message("Successfully logged In").token(token).build();
     }
 }

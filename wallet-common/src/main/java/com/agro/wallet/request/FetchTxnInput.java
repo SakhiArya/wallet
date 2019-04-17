@@ -1,5 +1,5 @@
 package com.agro.wallet.request;
 
-public class FetchTxnInput extends ApiRequest{
+public class FetchTxnInput extends ApiRequest {
 
 }

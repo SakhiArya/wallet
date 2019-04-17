@@ -15,6 +15,4 @@ public class Queries {
             + "txn.payee_wallet_id =user.wallet_id where txn. payee_wallet_id =:walletId";
 
 
-
-
 }

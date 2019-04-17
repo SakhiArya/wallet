@@ -15,40 +15,41 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserStore implements ITokenStore<String, WalletRegisterationInput> {
 
-	private Cache userCache;
+    private Cache userCache;
 
-	@Autowired
-	private CacheManager cacheManager;
+    @Autowired
+    private CacheManager cacheManager;
 
-	@PostConstruct
-	private void init() {
-		userCache = cacheManager.getCache("userCache");
-	}
+    @PostConstruct
+    private void init() {
+        userCache = cacheManager.getCache("userCache");
+    }
 
-	@Override
-	public WalletRegisterationInput getValue(String key) {
-		ValueWrapper value = userCache.get(key);
-		return (value != null && value.get() != null) ? (WalletRegisterationInput) value.get() : null;
-	}
+    @Override
+    public WalletRegisterationInput getValue(String key) {
+        ValueWrapper value = userCache.get(key);
+        return (value != null && value.get() != null) ? (WalletRegisterationInput) value.get()
+            : null;
+    }
 
-	@Override
-	public void put(String key, WalletRegisterationInput value) {
-		userCache.put(key, value);
-	}
+    @Override
+    public void put(String key, WalletRegisterationInput value) {
+        userCache.put(key, value);
+    }
 
-	@Override
-	public void remove(String key) {
-		userCache.evict(key);
-	}
+    @Override
+    public void remove(String key) {
+        userCache.evict(key);
+    }
 
-	@Override
-	public Set<String> getExistingKeys() {
-		return new HashSet<String>(((Ehcache) userCache.getNativeCache()).getKeys());
-	}
+    @Override
+    public Set<String> getExistingKeys() {
+        return new HashSet<String>(((Ehcache) userCache.getNativeCache()).getKeys());
+    }
 
-	@Override
-	public boolean exists(String key) {
-		ValueWrapper value = userCache.get(key);
-		return (value != null && value.get() != null) ? true : false;
-	}
+    @Override
+    public boolean exists(String key) {
+        ValueWrapper value = userCache.get(key);
+        return (value != null && value.get() != null) ? true : false;
+    }
 }

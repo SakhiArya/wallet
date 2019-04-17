@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WalletBalanceServiceImpl  implements WalletBalanceService {
+public class WalletBalanceServiceImpl implements WalletBalanceService {
 
     @Autowired
     WalletEntityService walletEntityService;

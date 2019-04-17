@@ -5,14 +5,15 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 public class AuthenticationRequestWrapper extends HttpServletRequestWrapper {
+
     private final String body;
+
     public AuthenticationRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
         StringBuilder stringBuilder = new StringBuilder();
@@ -76,4 +77,5 @@ public class AuthenticationRequestWrapper extends HttpServletRequestWrapper {
 
     public String getBody() {
         return this.body;
-    }}
+    }
+}

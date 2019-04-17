@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SubmitOtpOutput extends ApiResponse {
 
-      private String mobileNumber;
+    private String mobileNumber;
 
 
     public SubmitOtpOutput(String message, String userId) {
@@ -22,7 +22,7 @@ public class SubmitOtpOutput extends ApiResponse {
     @Builder
     public SubmitOtpOutput(ErrorCode errorCode, String errorMessage, String message,
         String mobileNumber) {
-        super(errorCode, errorMessage,message);
+        super(errorCode, errorMessage, message);
         this.mobileNumber = mobileNumber;
     }
 

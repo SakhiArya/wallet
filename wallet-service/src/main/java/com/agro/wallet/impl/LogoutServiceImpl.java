@@ -27,7 +27,7 @@ public class LogoutServiceImpl implements LogoutService {
         log.info("start logout user");
         LoginData loginData = loginStore.getValue(logoutInput.getToken());
 
-        if(StringUtils.isEmpty(loginData)){
+        if (StringUtils.isEmpty(loginData)) {
             throw new WalletException(ErrorCode.INVALID_REQUEST);
         }
         loginStore.remove(logoutInput.getToken());

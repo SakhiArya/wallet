@@ -28,7 +28,7 @@ public class WalletServiceImpl extends
 
     @Override
     public void deleteByWalletId(String walletId) {
-         getDao().deleteByWalletId(walletId);
+        getDao().deleteByWalletId(walletId);
     }
 
     @Override

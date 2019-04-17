@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AddMoneyInput extends ApiRequest{
+public class AddMoneyInput extends ApiRequest {
 
     private Double amount;
 

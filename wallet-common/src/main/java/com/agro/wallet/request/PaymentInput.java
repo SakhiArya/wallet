@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentInput extends ApiRequest{
+public class PaymentInput extends ApiRequest {
 
     @NotNull
     private Double amount;

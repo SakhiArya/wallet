@@ -19,9 +19,10 @@ public class FetchTxnOutput extends ApiResponse {
 
     @Builder
     public FetchTxnOutput(ErrorCode errorCode, String errorMessage,
-        String message, List<Transactions> transactions,List<ReceivedTransactions> receivedTransactions) {
+        String message, List<Transactions> transactions,
+        List<ReceivedTransactions> receivedTransactions) {
         super(errorCode, errorMessage, message);
         this.transactions = transactions;
-        this.receivedTransactions=receivedTransactions;
+        this.receivedTransactions = receivedTransactions;
     }
 }

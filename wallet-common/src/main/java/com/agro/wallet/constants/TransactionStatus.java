@@ -12,5 +12,6 @@ public enum TransactionStatus {
     SUCCESS,
     CANCELED;
 
-    public static Set<TransactionStatus> terminalStatus = new HashSet<>(Arrays.asList(FAILED,SUCCESS,CANCELED));
+    public static Set<TransactionStatus> terminalStatus = new HashSet<>(
+        Arrays.asList(FAILED, SUCCESS, CANCELED));
 }

@@ -10,7 +10,6 @@ import com.agro.wallet.request.LoginInput;
 import com.agro.wallet.request.LogoutInput;
 import com.agro.wallet.request.ResponseUtils;
 import com.agro.wallet.request.SubmitOtpInput;
-import com.agro.wallet.request.WalletBalaceInput;
 import com.agro.wallet.request.WalletRegisterationInput;
 import com.agro.wallet.response.WalletApiResponse;
 import io.swagger.annotations.Api;
@@ -26,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value =C.CONTROLLER_USER)
+@RequestMapping(value = C.CONTROLLER_USER)
 @Api(value = "", description = "this controller is for user's registration and login ")
 @Slf4j
 public class AuthLandingController {
@@ -56,7 +55,7 @@ public class AuthLandingController {
         registerationInput) {
         log.info("Inside AuthLandingController ,Start of registerUser with mobile number {}",
             registerationInput.getMobileNumber
-            ());
+                ());
 
         return ResponseUtils.successResponse(registerationApi.execute(registerationInput));
     }
@@ -71,7 +70,7 @@ public class AuthLandingController {
 
     public WalletApiResponse submitOtp(@Valid @RequestBody SubmitOtpInput
         submitOtpInput) {
-        log.info("Inside AuthLandingController ,Start of submitOtp" );
+        log.info("Inside AuthLandingController ,Start of submitOtp");
 
         return ResponseUtils.successResponse(otpValidationApi.execute(submitOtpInput));
     }
@@ -87,8 +86,9 @@ public class AuthLandingController {
     public WalletApiResponse login(@Valid @RequestBody LoginInput
         loginInput) {
 
-        log.info("Inside AuthLandingController ,Start of login with mobile number {} ", loginInput.getMobileNumber
-            ());
+        log.info("Inside AuthLandingController ,Start of login with mobile number {} ",
+            loginInput.getMobileNumber
+                ());
         return ResponseUtils.successResponse(loginApi.execute(loginInput));
     }
 

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class WalletApiResponse <T extends ApiResponse> {
+public class WalletApiResponse<T extends ApiResponse> {
 
     private boolean success = false;
 

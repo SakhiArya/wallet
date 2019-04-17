@@ -32,18 +32,18 @@ public class AddMoneyApiTest extends WalletApiBaseTest {
 
         Double bal = walletEntity.getBalance();
 
-        AddMoneyInput addMoneyInput =  new AddMoneyInput();
+        AddMoneyInput addMoneyInput = new AddMoneyInput();
         addMoneyInput.setAmount(addBal);
         addMoneyInput.setMobileNumber(mobileUserOne);
         addMoneyInput.setToken(tokenUserOne);
 
         String inputJson = mapToJson(addMoneyInput);
-        MvcResult mvcResult = getMvcResult(addMoneyUri,inputJson);
+        MvcResult mvcResult = getMvcResult(addMoneyUri, inputJson);
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
 
         walletEntity = walletEntityService.findById(loginData.getWalletId());
-        Assert.assertEquals(bal+addBal,walletEntity.getBalance(),0);
+        Assert.assertEquals(bal + addBal, walletEntity.getBalance(), 0);
 
         //Add money for user Two
         addBal = 200.00;
@@ -58,12 +58,12 @@ public class AddMoneyApiTest extends WalletApiBaseTest {
         addMoneyInput.setToken(tokenUserTwo);
 
         inputJson = mapToJson(addMoneyInput);
-        mvcResult = getMvcResult(addMoneyUri,inputJson);
+        mvcResult = getMvcResult(addMoneyUri, inputJson);
         status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
 
         walletEntity = walletEntityService.findById(loginData.getWalletId());
-        Assert.assertEquals(bal+addBal,walletEntity.getBalance(),0);
+        Assert.assertEquals(bal + addBal, walletEntity.getBalance(), 0);
 
     }
 }

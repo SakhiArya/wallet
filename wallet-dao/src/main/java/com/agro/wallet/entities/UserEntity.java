@@ -23,7 +23,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="user",indexes = {@Index(name = "mobile_number_index",  columnList="mobile_number", unique = true)})
+@Table(name = "user", indexes = {
+    @Index(name = "mobile_number_index", columnList = "mobile_number", unique = true)})
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,44 +36,44 @@ public class UserEntity extends AuditedEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name="user_id",nullable = false)
+    @Column(name = "user_id", nullable = false)
     private String userId;
 
-    @OneToOne(targetEntity=WalletEntity.class,cascade= CascadeType.ALL)
-    @JoinColumn(name="wallet_id",referencedColumnName="wallet_id")
+    @OneToOne(targetEntity = WalletEntity.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "wallet_id", referencedColumnName = "wallet_id")
     private WalletEntity walletId;
 
-    @Column(name="first_name",nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name="last_name")
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name="display_name")
+    @Column(name = "display_name")
     private String displayName;
 
-    @Column(name="mobile_number",nullable = false)
+    @Column(name = "mobile_number", nullable = false)
     private String mobileNumber;
 
-    @OneToOne(targetEntity=AddressEntity.class,cascade= CascadeType.ALL)
-    @JoinColumn(name="address_id",referencedColumnName="address_id")
+    @OneToOne(targetEntity = AddressEntity.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private AddressEntity addressId;
 
-    @Column(name="email",nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name="dob",nullable = false)
+    @Column(name = "dob", nullable = false)
     private Date dob;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="user_type",nullable = false)
+    @Column(name = "user_type", nullable = false)
     private UserType userType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="user_status",nullable = false)
+    @Column(name = "user_status", nullable = false)
     private UserStatus userStatus;
 
 }

@@ -1,6 +1,6 @@
 package com.agro.wallet.constants;
 
-public enum  CurrencyType {
+public enum CurrencyType {
 
     INR
 }

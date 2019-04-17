@@ -20,20 +20,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "address")
-public class AddressEntity extends AuditedEntity<Integer>{
+public class AddressEntity extends AuditedEntity<Integer> {
 
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name="address_id",nullable = false)
+    @Column(name = "address_id", nullable = false)
     private String addressId;
 
-    @Column(name="address_line1",nullable = false)
+    @Column(name = "address_line1", nullable = false)
     private String addressLine1;
 
     @Column(name = "city", nullable = false)

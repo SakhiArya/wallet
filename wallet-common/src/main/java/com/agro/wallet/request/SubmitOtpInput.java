@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 
-public class SubmitOtpInput extends ApiRequest{
+public class SubmitOtpInput extends ApiRequest {
 
 
     @NotNull
@@ -20,7 +20,7 @@ public class SubmitOtpInput extends ApiRequest{
     @Builder
     public SubmitOtpInput(String mobileNumber,
         @NotNull String token, @NotNull String otp) {
-        super(mobileNumber,token);
+        super(mobileNumber, token);
         this.otp = otp;
     }
 

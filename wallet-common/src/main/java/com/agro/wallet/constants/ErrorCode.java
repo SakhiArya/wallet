@@ -15,9 +15,7 @@ public enum ErrorCode {
     INVALID_USER("you are not registered with us , kindly register first "),
     UNAUTH_USER("Unauthorized user"),
     ALREADY_EXISTS("Your Mobile Number is already registered with us kindly login ,if you have "
-        + "forgoten password please click on \"forget password\"")
-
-    ;
+        + "forgoten password please click on \"forget password\"");
 
     @Getter
     private String description;

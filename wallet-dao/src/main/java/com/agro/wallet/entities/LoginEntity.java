@@ -2,7 +2,6 @@ package com.agro.wallet.entities;
 
 import com.agro.wallet.utils.AESEncrytionUtils;
 import com.agro.wallet.utils.Encrypted;
-import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -21,9 +20,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="login",indexes = {
-    @Index(name="mobile_number_UNIQUE",columnList= "mobile_number",unique=true),
-    @Index(name="user_id_UNIQUE",columnList= "user_id",unique=true)
+@Table(name = "login", indexes = {
+    @Index(name = "mobile_number_UNIQUE", columnList = "mobile_number", unique = true),
+    @Index(name = "user_id_UNIQUE", columnList = "user_id", unique = true)
 })
 @Builder
 @NoArgsConstructor
@@ -36,17 +35,17 @@ public class LoginEntity extends AuditedEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name="mobile_number",nullable = false)
+    @Column(name = "mobile_number", nullable = false)
     private String mobileNumber;
 
-    @OneToOne(targetEntity=UserEntity.class,cascade= CascadeType.ALL)
-    @JoinColumn(name="user_id",referencedColumnName="user_id",nullable = false)
+    @OneToOne(targetEntity = UserEntity.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private UserEntity userId;
 
-    @Column(name="password",nullable = false)
+    @Column(name = "password", nullable = false)
     @Convert(converter = AESEncrytionUtils.class)
     @Encrypted
     private String password;

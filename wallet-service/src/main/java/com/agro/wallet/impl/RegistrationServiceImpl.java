@@ -63,18 +63,18 @@ public class RegistrationServiceImpl implements RegisterationService {
         UserEntity ifUserPresent = userEntityService.findIfUserAlreadyExists
             (walletRegisterationInput.getMobileNumber());
 
-        if(!StringUtils.isEmpty(ifUserPresent)){
+        if (!StringUtils.isEmpty(ifUserPresent)) {
             throw new WalletException(ErrorCode.ALREADY_EXISTS);
         }
 
-        String JWT =jwtTokenUtil.generateJWT(walletRegisterationInput);
+        String JWT = jwtTokenUtil.generateJWT(walletRegisterationInput);
         String otp = generateOTP();
-        log.info("otp {} ",otp);
-        otpUtil.sendTxtMessageForOTP(apiKey,secretKey,useType,walletRegisterationInput
+        log.info("otp {} ", otp);
+        otpUtil.sendTxtMessageForOTP(apiKey, secretKey, useType, walletRegisterationInput
                 .getMobileNumber()
                 .toString(),
-            messageTemplate+otp,senderId);
-        registerUserInToken(JWT,otp,walletRegisterationInput);
+            messageTemplate + otp, senderId);
+        registerUserInToken(JWT, otp, walletRegisterationInput);
 
         log.info("end of registerUser");
         return WalletRegistrationOutput.builder().token(JWT).build();
@@ -82,17 +82,17 @@ public class RegistrationServiceImpl implements RegisterationService {
     }
 
     @Override
-    public void registerUserInToken(String token, String otp,WalletRegisterationInput walletRegisterationInput) {
+    public void registerUserInToken(String token, String otp,
+        WalletRegisterationInput walletRegisterationInput) {
 
         log.info("start of registerUserInToken");
 
         tokenStore.put(token, otp);
-        userStore.put(token,walletRegisterationInput);
+        userStore.put(token, walletRegisterationInput);
 
         log.info("end of registerUserInToken");
 
     }
-
 
 
     private String generateOTP() {
@@ -100,9 +100,9 @@ public class RegistrationServiceImpl implements RegisterationService {
         Random random = new Random();
         StringBuilder otp = new StringBuilder();
 
-        for(int i = 0; i< 4; i++) {
+        for (int i = 0; i < 4; i++) {
             otp.append(numbers.charAt(random.nextInt(numbers.length())));
         }
-                return otp.toString() ;
+        return otp.toString();
     }
 }

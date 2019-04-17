@@ -55,42 +55,45 @@ public class OtpValidationServiceImpl implements OtpValidationService {
     public SubmitOtpOutput validateOtp(SubmitOtpInput submitOtpInput) {
         log.info("start of validateOtp");
         String token = submitOtpInput.getToken();
-         String storedOtp = tokenStore.getValue(token);
-        WalletRegisterationInput walletRegisterationInput =userStore.getValue(token);
-         if(StringUtils.isEmpty(storedOtp) || StringUtils.isEmpty(walletRegisterationInput)){
-             throw new WalletException(ErrorCode.INVALID_TOKEN);
-         }
+        String storedOtp = tokenStore.getValue(token);
+        WalletRegisterationInput walletRegisterationInput = userStore.getValue(token);
+        if (StringUtils.isEmpty(storedOtp) || StringUtils.isEmpty(walletRegisterationInput)) {
+            throw new WalletException(ErrorCode.INVALID_TOKEN);
+        }
 
-         if(null==walletRegisterationInput || !walletRegisterationInput.getMobileNumber().equals
-             (submitOtpInput.getMobileNumber()))
-             throw new WalletException(ErrorCode.INVALID_REQUEST);
+        if (null == walletRegisterationInput || !walletRegisterationInput.getMobileNumber().equals
+            (submitOtpInput.getMobileNumber())) {
+            throw new WalletException(ErrorCode.INVALID_REQUEST);
+        }
 
-         if(storedOtp.equals(submitOtpInput.getOtp())){
+        if (storedOtp.equals(submitOtpInput.getOtp())) {
 
-            String mobileNumber=saveUserInDb(walletRegisterationInput);
-             tokenStore.remove(token);
-             userStore.remove(token);
-             log.info("end of validateOtp-successfully");
-             return SubmitOtpOutput.builder().message("Congratulations you are successfully "
-                 + "registered please login with your mobile number and password").mobileNumber(mobileNumber)
-                 .build();
-         }
+            String mobileNumber = saveUserInDb(walletRegisterationInput);
+            tokenStore.remove(token);
+            userStore.remove(token);
+            log.info("end of validateOtp-successfully");
+            return SubmitOtpOutput.builder().message("Congratulations you are successfully "
+                + "registered please login with your mobile number and password")
+                .mobileNumber(mobileNumber)
+                .build();
+        }
         log.info("end of validateOtp-unsuccessful");
-        return new SubmitOtpOutput(ErrorCode.INVALID_OTP,ErrorCode.INVALID_OTP
-            .getDescription(),"Unable to save user",null);
+        return new SubmitOtpOutput(ErrorCode.INVALID_OTP, ErrorCode.INVALID_OTP
+            .getDescription(), "Unable to save user", null);
     }
 
 
     @Transactional
-    private String saveUserInDb(WalletRegisterationInput walletRegisterationInput){
+    private String saveUserInDb(WalletRegisterationInput walletRegisterationInput) {
         log.info("start of saveUserInDb after otp validation");
         AddressEntity addressEntity = AddressEntity.builder()
             .addressLine1(walletRegisterationInput.getAddress().getAddressLine())
             .city(walletRegisterationInput.getAddress().getCity())
             .country(walletRegisterationInput.getAddress().getCountry())
             .state(walletRegisterationInput.getAddress().getState())
-            .pincode(null!=walletRegisterationInput.getAddress().getPincode()?walletRegisterationInput
-                .getAddress().getPincode():null)
+            .pincode(null != walletRegisterationInput.getAddress().getPincode()
+                ? walletRegisterationInput
+                .getAddress().getPincode() : null)
             .addressId(commonUtils.generateUUID(walletRegisterationInput.getAddress().getCountry()))
             .build();
 
@@ -102,7 +105,7 @@ public class OtpValidationServiceImpl implements OtpValidationService {
             .walletId(commonUtils.generateUUID(walletRegisterationInput.getMobileNumber()))
             .build();
 
-       // WalletEntity savedWalletEntity=walletEntityService.getDao().save(walletEntity);
+        // WalletEntity savedWalletEntity=walletEntityService.getDao().save(walletEntity);
 
         UserEntity userEntity = UserEntity.builder()
             .userStatus(UserStatus.VERIFIED)
@@ -111,8 +114,8 @@ public class OtpValidationServiceImpl implements OtpValidationService {
             .dob(walletRegisterationInput.getDob())
             .email(walletRegisterationInput.getEmailId())
             .firstName(walletRegisterationInput.getFirstName())
-            .lastName(null!=walletRegisterationInput.getLastName()?walletRegisterationInput
-                .getLastName():null)
+            .lastName(null != walletRegisterationInput.getLastName() ? walletRegisterationInput
+                .getLastName() : null)
             .userId(commonUtils.generateUUID(walletRegisterationInput.getFirstName()))
             .mobileNumber(walletRegisterationInput.getMobileNumber())
             .displayName(walletRegisterationInput.getDisplayName())

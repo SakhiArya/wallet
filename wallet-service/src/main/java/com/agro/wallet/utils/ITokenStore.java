@@ -3,13 +3,14 @@ package com.agro.wallet.utils;
 import java.util.Set;
 
 public interface ITokenStore<K, V> {
-	V getValue(K key);
 
-	void put(K key, V value);
+    V getValue(K key);
 
-	void remove(K key);
+    void put(K key, V value);
 
-	public Set<K> getExistingKeys();
+    void remove(K key);
 
-	boolean exists(K key);
+    public Set<K> getExistingKeys();
+
+    boolean exists(K key);
 }

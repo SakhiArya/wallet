@@ -26,14 +26,14 @@ public class CancelTransactionServiceImpl implements CancelTransactionService {
     public CancelTransactionOutput cancelTransaction(
         CancelTransactionInput cancelTransactionInput) {
         TransactionEntity transaction;
-        CancelTransactionOutput cancelTransactionOutput =CancelTransactionOutput.builder()
+        CancelTransactionOutput cancelTransactionOutput = CancelTransactionOutput.builder()
             .txnId(cancelTransactionInput.getTxnId())
             //.origTransactionStatus(transaction.getStatus())
             .build();
         try {
             paymentService.updateTransactionStatus(cancelTransactionInput.getTxnId(),
                 TransactionStatus.CANCELED);
-        }catch (WalletException we){
+        } catch (WalletException we) {
             log.info("Unable to cancel Transaction, txn already in terminal state");
         }
         transaction = fetchTxnService.fetchOne(cancelTransactionInput.getTxnId());

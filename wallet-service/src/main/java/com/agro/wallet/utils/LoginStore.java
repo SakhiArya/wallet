@@ -12,7 +12,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LoginStore implements ITokenStore<String, LoginData>  {
+public class LoginStore implements ITokenStore<String, LoginData> {
 
 
     private Cache userCache;

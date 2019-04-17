@@ -14,8 +14,8 @@ public class LoginOutput extends ApiResponse {
     private String token;
 
     @Builder
-    public LoginOutput(ErrorCode errorCode, String errorMessage,String message,String token) {
-        super(errorCode, errorMessage,message);
-        this.token=token;
+    public LoginOutput(ErrorCode errorCode, String errorMessage, String message, String token) {
+        super(errorCode, errorMessage, message);
+        this.token = token;
     }
 }

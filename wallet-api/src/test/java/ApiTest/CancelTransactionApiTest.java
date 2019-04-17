@@ -32,14 +32,14 @@ public class CancelTransactionApiTest extends WalletApiBaseTest {
     private WalletEntityService walletEntityService;
 
     @Test
-    public void cancelTransaction() throws Exception{
+    public void cancelTransaction() throws Exception {
         Double bal = 36.00;
         String note = "Test Cancel Pay";
         String payeeMobNo = mobileUserOne;
         String payerMobNo = mobileUserTwo;
         String payerToken = tokenUserTwo;
 
-        FetchUserOutput fetchUserOutput = fetchPayee(bal,note,payeeMobNo,payerToken,payerMobNo);
+        FetchUserOutput fetchUserOutput = fetchPayee(bal, note, payeeMobNo, payerToken, payerMobNo);
         Assert.assertNotNull(fetchUserOutput.getFirstName());
         Assert.assertNotNull(fetchUserOutput.getTxnId());
 
@@ -51,31 +51,35 @@ public class CancelTransactionApiTest extends WalletApiBaseTest {
         cancelTransactionInput.setToken(payerToken);
 
         String inputJson = mapToJson(cancelTransactionInput);
-        MvcResult mvcResult = getMvcResult(cancelTransactionsUri,inputJson);
+        MvcResult mvcResult = getMvcResult(cancelTransactionsUri, inputJson);
 
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
         WalletApiResponse<CancelTransactionOutput> walletApiResponse =
-            mapFromJson(content, new TypeReference<WalletApiResponse<CancelTransactionOutput>>(){});
+            mapFromJson(content, new TypeReference<WalletApiResponse<CancelTransactionOutput>>() {
+            });
 
         CancelTransactionOutput cancelTransactionOutput = walletApiResponse.getResult();
-        Assert.assertEquals(cancelTransactionOutput.getFinalTransactionStatus(), TransactionStatus.CANCELED);
+        Assert.assertEquals(cancelTransactionOutput.getFinalTransactionStatus(),
+            TransactionStatus.CANCELED);
 
         //Proceeding with Transaction after cancel -- should not complete
-        PaymentInput paymentInput = getPaymentInput(bal,note,payeeMobNo,payerToken,payerMobNo);
+        PaymentInput paymentInput = getPaymentInput(bal, note, payeeMobNo, payerToken, payerMobNo);
         paymentInput.setTxnId(txnId);
 
         inputJson = mapToJson(paymentInput);
-        mvcResult = getMvcResult(paymentUri,inputJson);
+        mvcResult = getMvcResult(paymentUri, inputJson);
 
         status = mvcResult.getResponse().getStatus();
         assertEquals(400, status);
         content = mvcResult.getResponse().getContentAsString();
         WalletApiResponse<PaymentOutput> walletApiPayResponse =
-            mapFromJson(content, new TypeReference<WalletApiResponse<PaymentOutput>>(){});
+            mapFromJson(content, new TypeReference<WalletApiResponse<PaymentOutput>>() {
+            });
         Assert.assertEquals(walletApiPayResponse.getErrorCode(), ErrorCode.WALLET_STATUS);
-        Assert.assertEquals(walletApiPayResponse.getErrorMessage(),ErrorCode.WALLET_STATUS.getDescription());
+        Assert.assertEquals(walletApiPayResponse.getErrorMessage(),
+            ErrorCode.WALLET_STATUS.getDescription());
     }
 
 }

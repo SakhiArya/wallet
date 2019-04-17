@@ -18,7 +18,6 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedNativeQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -28,7 +27,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name="transactions",indexes = {@Index(name = "txn_id_index",  columnList="txn_id", unique = true)})
+@Table(name = "transactions", indexes = {
+    @Index(name = "txn_id_index", columnList = "txn_id", unique = true)})
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -53,8 +53,6 @@ import lombok.Setter;
     name = "TransactionEntity.getAllTransactionForWalletId",
     query = Queries.getTransactions,
     resultSetMapping = "transactions")
-
-
 
 @SqlResultSetMapping(
     name = "receivedTransactions",
@@ -84,32 +82,32 @@ public class TransactionEntity extends AuditedEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name="txn_id",nullable = false)
+    @Column(name = "txn_id", nullable = false)
     private String txnId;
 
-    @ManyToOne(targetEntity=WalletEntity.class,cascade= CascadeType.ALL)
-    @JoinColumn(name="payer_wallet_id",referencedColumnName="wallet_id",nullable = false)
+    @ManyToOne(targetEntity = WalletEntity.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "payer_wallet_id", referencedColumnName = "wallet_id", nullable = false)
     private WalletEntity payerWalletId;
 
-    @ManyToOne(targetEntity=WalletEntity.class,cascade= CascadeType.ALL)
-    @JoinColumn(name="payee_wallet_id",referencedColumnName="wallet_id",nullable = false)
+    @ManyToOne(targetEntity = WalletEntity.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "payee_wallet_id", referencedColumnName = "wallet_id", nullable = false)
     private WalletEntity payeeWalletId;
 
-    @Column(name="amount",nullable = false)
+    @Column(name = "amount", nullable = false)
     private Double amount;
 
-    @Column(name="note")
-    private String  note;
+    @Column(name = "note")
+    private String note;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="status",nullable = false)
+    @Column(name = "status", nullable = false)
     private TransactionStatus status;
 
     @Version
     @Column(name = "lock_id", columnDefinition = "int(5) default 0", nullable = false)
-    private Integer  lockId = 1;
+    private Integer lockId = 1;
 
 }

@@ -11,7 +11,7 @@ public class JwtTokenUtil {
 
     private static final Gson gson = new Gson();
 
-    public String generateJWT(Object obj){
+    public String generateJWT(Object obj) {
 
         return Jwts.builder().setSubject(gson.toJson(obj))
             .setExpiration(new Date(System.currentTimeMillis() + TokenUtils.EXPIRATIONTIME))

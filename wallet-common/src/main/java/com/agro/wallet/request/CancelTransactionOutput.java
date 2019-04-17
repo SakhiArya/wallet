@@ -14,7 +14,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class CancelTransactionOutput extends ApiResponse {
-        private String txnId;
-        private TransactionStatus origTransactionStatus;
-        private TransactionStatus finalTransactionStatus;
+
+    private String txnId;
+    private TransactionStatus origTransactionStatus;
+    private TransactionStatus finalTransactionStatus;
 }

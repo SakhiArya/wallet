@@ -25,19 +25,21 @@ public class FetchTxnServiceImpl implements FetchTxnService {
 
     @Override
     public FetchTxnOutput fetchTxn(FetchTxnInput fetchTxnInput) {
-        LoginData loginData=loginStore.getValue(fetchTxnInput.getToken());
+        LoginData loginData = loginStore.getValue(fetchTxnInput.getToken());
 
-        List<Transactions> transactions=transactionEntityService.getAllTransactionsForWalletId(loginData
-            .getWalletId());
+        List<Transactions> transactions = transactionEntityService
+            .getAllTransactionsForWalletId(loginData
+                .getWalletId());
 
-        List<ReceivedTransactions> receivedTransactions= transactionEntityService
+        List<ReceivedTransactions> receivedTransactions = transactionEntityService
             .getAllReceivedTransactionForWalletId(loginData.getWalletId());
 
-        return FetchTxnOutput.builder().transactions(transactions).receivedTransactions(receivedTransactions).build();
+        return FetchTxnOutput.builder().transactions(transactions)
+            .receivedTransactions(receivedTransactions).build();
     }
 
     @Override
-    public TransactionEntity fetchOne(String txnId){
+    public TransactionEntity fetchOne(String txnId) {
         return transactionEntityService.findByTxnId(txnId);
     }
 }

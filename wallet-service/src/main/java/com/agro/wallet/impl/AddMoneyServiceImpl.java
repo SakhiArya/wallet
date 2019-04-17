@@ -12,7 +12,6 @@ import com.agro.wallet.service.WalletEntityService;
 import com.agro.wallet.utils.CommonUtils;
 import com.agro.wallet.utils.LoginData;
 import com.agro.wallet.utils.LoginStore;
-import com.agro.wallet.utils.UserStore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,24 +38,25 @@ public class AddMoneyServiceImpl implements AddMoneyService {
         LoginData loginData = loginStore.getValue(addMoneyInput.getToken());
         WalletEntity walletEntity = walletEntityService.findById(loginData.getWalletId());
         Double currentBalance = walletEntity.getBalance();
-        Double updatedBalance = currentBalance+addMoneyInput.getAmount();
+        Double updatedBalance = currentBalance + addMoneyInput.getAmount();
         walletEntity.setBalance(updatedBalance);
         walletEntityService.getDao().save(walletEntity);
 
-        TransactionEntity transactionEntity = TransactionEntity.builder().amount(addMoneyInput.getAmount())
+        TransactionEntity transactionEntity = TransactionEntity.builder()
+            .amount(addMoneyInput.getAmount())
             .note("self")
             .payeeWalletId(walletEntity)
             .payerWalletId(walletEntity)
             .status(TransactionStatus.SUCCESS)
             .txnId(commonUtils.generateUUID("TXN"))
             .build();
-        transactionEntity=transactionEntityService.getDao().save(transactionEntity);
-
+        transactionEntity = transactionEntityService.getDao().save(transactionEntity);
 
         log.info("end addMoney");
-        return AddMoneyOutput.builder().txnId(transactionEntity.getTxnId()).newBalance("Your updated "
-            + "balance is "
-            + ""+updatedBalance)
+        return AddMoneyOutput.builder().txnId(transactionEntity.getTxnId())
+            .newBalance("Your updated "
+                + "balance is "
+                + "" + updatedBalance)
             .build();
     }
 }

@@ -26,31 +26,32 @@ public class PaymentApiTest extends WalletApiBaseTest {
     private LoginStore loginStore;
 
     @Test
-    public void fetchPayeeNameAndPayment() throws Exception{
+    public void fetchPayeeNameAndPayment() throws Exception {
         Double bal = 56.00;
         String note = "Test Pay";
         String payeeMobNo = mobileUserOne;
         String payerMobNo = mobileUserTwo;
         String payerToken = tokenUserTwo;
 
-        FetchUserOutput fetchUserOutput = CommonUtils.fetchPayee(bal,note,payeeMobNo,payerToken,
+        FetchUserOutput fetchUserOutput = CommonUtils.fetchPayee(bal, note, payeeMobNo, payerToken,
             payerMobNo);
         Assert.assertNotNull(fetchUserOutput.getFirstName());
         Assert.assertNotNull(fetchUserOutput.getTxnId());
 
         String txnId = fetchUserOutput.getTxnId();
-        PaymentInput paymentInput = CommonUtils.getPaymentInput(bal,note,payeeMobNo,payerToken,
+        PaymentInput paymentInput = CommonUtils.getPaymentInput(bal, note, payeeMobNo, payerToken,
             payerMobNo);
         paymentInput.setTxnId(txnId);
 
         String inputJson = mapToJson(paymentInput);
-        MvcResult mvcResult = getMvcResult(paymentUri,inputJson);
+        MvcResult mvcResult = getMvcResult(paymentUri, inputJson);
 
         int status = mvcResult.getResponse().getStatus();
         assertEquals(200, status);
         String content = mvcResult.getResponse().getContentAsString();
         WalletApiResponse<PaymentOutput> walletApiResponse =
-            mapFromJson(content, new TypeReference<WalletApiResponse<PaymentOutput>>(){});
+            mapFromJson(content, new TypeReference<WalletApiResponse<PaymentOutput>>() {
+            });
         PaymentOutput paymentOutput = walletApiResponse.getResult();
         Assert.assertEquals(paymentOutput.getTransactionStatus(), TransactionStatus.SUCCESS);
     }

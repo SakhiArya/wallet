@@ -1,4 +1,3 @@
-
 package com.agro.wallet.utils;
 
 import java.util.HashSet;
@@ -14,41 +13,41 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegisterationTokenStore implements ITokenStore<String, String> {
 
-	private Cache authCache;
+    private Cache authCache;
 
-	@Autowired
-	private CacheManager cacheManager;
+    @Autowired
+    private CacheManager cacheManager;
 
-	@PostConstruct
-	private void init() {
-		authCache = cacheManager.getCache("authCache");
-	}
+    @PostConstruct
+    private void init() {
+        authCache = cacheManager.getCache("authCache");
+    }
 
-	@Override
-	public String getValue(String key) {
-		ValueWrapper value = authCache.get(key);
-		return (value != null && value.get() != null) ? (String) value.get() : null;
-	}
+    @Override
+    public String getValue(String key) {
+        ValueWrapper value = authCache.get(key);
+        return (value != null && value.get() != null) ? (String) value.get() : null;
+    }
 
-	@Override
-	public void put(String key, String value) {
-		authCache.put(key, value);
+    @Override
+    public void put(String key, String value) {
+        authCache.put(key, value);
 
-	}
+    }
 
-	@Override
-	public void remove(String key) {
-		authCache.evict(key);
-	}
+    @Override
+    public void remove(String key) {
+        authCache.evict(key);
+    }
 
-	@Override
-	public Set<String> getExistingKeys() {
-		return new HashSet<String>(((Ehcache) authCache.getNativeCache()).getKeys());
-	}
+    @Override
+    public Set<String> getExistingKeys() {
+        return new HashSet<String>(((Ehcache) authCache.getNativeCache()).getKeys());
+    }
 
-	@Override
-	public boolean exists(String key) {
-		ValueWrapper value = authCache.get(key);
-		return (value != null && value.get() != null) ? true : false;
-	}
+    @Override
+    public boolean exists(String key) {
+        ValueWrapper value = authCache.get(key);
+        return (value != null && value.get() != null) ? true : false;
+    }
 }

@@ -19,9 +19,9 @@ public class AddMoneyOutput extends ApiResponse {
 
     @Builder
     public AddMoneyOutput(ErrorCode errorCode, String errorMessage,
-        String message, String newBalance,String txnId) {
+        String message, String newBalance, String txnId) {
         super(errorCode, errorMessage, message);
         this.newBalance = newBalance;
-        this.txnId=txnId;
+        this.txnId = txnId;
     }
 }

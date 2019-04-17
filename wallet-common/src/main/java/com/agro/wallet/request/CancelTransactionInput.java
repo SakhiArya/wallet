@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CancelTransactionInput extends ApiRequest{
+public class CancelTransactionInput extends ApiRequest {
+
     private String txnId;
 }

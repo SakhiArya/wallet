@@ -28,8 +28,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
         FilterChain filterChain) throws ServletException, IOException {
 
-        boolean authReqd=isAuthReqd(request);
-        if(!authReqd){
+        boolean authReqd = isAuthReqd(request);
+        if (!authReqd) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -41,16 +41,17 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         ApiRequest apiRequest = gson.fromJson(reader, ApiRequest.class);
         //ApiRequest apiRequest =(ApiRequest)request;
         LoginData loginData = new LoginData();
-        if(null!=apiRequest && null!=apiRequest.getToken()) {
+        if (null != apiRequest && null != apiRequest.getToken()) {
             loginData = loginStore.getValue(apiRequest.getToken());
         }
-        if(StringUtils.isEmpty(loginData)){
+        if (StringUtils.isEmpty(loginData)) {
             throw new WalletException(ErrorCode.UNAUTH_USER);
         }
 
-        if (null!=apiRequest&&null!=apiRequest.getMobileNumber()&&!apiRequest.getMobileNumber()
+        if (null != apiRequest && null != apiRequest.getMobileNumber() && !apiRequest
+            .getMobileNumber()
             .equals(loginData
-            .getMobileNumber())){
+                .getMobileNumber())) {
             throw new WalletException(ErrorCode.UNAUTH_USER);
         }
 
@@ -60,14 +61,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     private boolean isAuthReqd(HttpServletRequest request) {
         String pathInfo = request.getServletPath();
-        if((pathInfo.startsWith("/user")
-            ||  pathInfo.contains("swagger-resources")
-            ||pathInfo.endsWith(".html")
+        if ((pathInfo.startsWith("/user")
+            || pathInfo.contains("swagger-resources")
+            || pathInfo.endsWith(".html")
             || pathInfo.endsWith(".png")
             || pathInfo.endsWith(".js")
             || pathInfo.endsWith("/v2/api-docs")
             || pathInfo.contains("/webjars/")
-            || pathInfo.endsWith(".css"))){
+            || pathInfo.endsWith(".css"))) {
 
             return false;
         }

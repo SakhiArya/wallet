@@ -4,7 +4,7 @@ import com.agro.wallet.constants.ErrorCode;
 import lombok.Getter;
 import lombok.Setter;
 
-public class WalletException extends RuntimeException{
+public class WalletException extends RuntimeException {
 
 
     @Getter

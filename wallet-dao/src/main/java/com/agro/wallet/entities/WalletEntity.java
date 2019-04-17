@@ -1,7 +1,6 @@
 package com.agro.wallet.entities;
 
 import com.agro.wallet.constants.CurrencyType;
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,7 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="wallet")
+@Table(name = "wallet")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,17 +28,17 @@ public class WalletEntity extends AuditedEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Integer id;
 
-    @Column(name="wallet_id",nullable = false)
+    @Column(name = "wallet_id", nullable = false)
     private String walletId;
 
-    @Column(name="balance",nullable = false)
-    private Double balance ;
+    @Column(name = "balance", nullable = false)
+    private Double balance;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="currency",nullable = false)
+    @Column(name = "currency", nullable = false)
     private CurrencyType currency;
 
 }

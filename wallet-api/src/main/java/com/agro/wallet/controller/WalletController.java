@@ -3,15 +3,15 @@ package com.agro.wallet.controller;
 
 import com.agro.wallet.apis.AddMoneyInputApi;
 import com.agro.wallet.apis.CancelTransactionApi;
+import com.agro.wallet.apis.FetchTxnApi;
 import com.agro.wallet.apis.PayeeNameApi;
 import com.agro.wallet.apis.PaymentApi;
 import com.agro.wallet.apis.WalletBalanceApi;
 import com.agro.wallet.constants.C;
 import com.agro.wallet.request.AddMoneyInput;
 import com.agro.wallet.request.CancelTransactionInput;
-import com.agro.wallet.request.PaymentInput;
-import com.agro.wallet.apis.FetchTxnApi;
 import com.agro.wallet.request.FetchTxnInput;
+import com.agro.wallet.request.PaymentInput;
 import com.agro.wallet.request.ResponseUtils;
 import com.agro.wallet.request.WalletBalaceInput;
 import com.agro.wallet.response.WalletApiResponse;
@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value =C.CONTROLLER_WALLET)
+@RequestMapping(value = C.CONTROLLER_WALLET)
 @Api(value = "All the basic wallet operations ", description = "this controller is for wallet transactions ")
 @Slf4j
 public class WalletController {

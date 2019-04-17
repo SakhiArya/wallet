@@ -29,13 +29,15 @@ public class PayeeNameApi extends ApiService<PaymentInput, FetchUserOutput> {
 
     @Autowired
     WalletEntityService walletEntityService;
+
     @Override
     public FetchUserOutput callApi(PaymentInput paymentInput) throws WalletException {
         UserEntity user = userEntityService.findByMobileNumber(paymentInput.getPayeeMobileNumber());
         LoginData loginData = loginStore.getValue(paymentInput.getToken());
         WalletEntity payeeWallet = user.getWalletId();
         WalletEntity payerWallet = walletEntityService.findById(loginData.getWalletId());
-        TransactionEntity transaction = paymentService.createTransaction(paymentInput,payeeWallet,payerWallet);
+        TransactionEntity transaction = paymentService
+            .createTransaction(paymentInput, payeeWallet, payerWallet);
         return FetchUserOutput.builder().amount(paymentInput.getAmount())
             .firstName(user.getFirstName()).lastName(user.getLastName()).
                 displayName(user.getDisplayName()).txnId(transaction.getTxnId()).build();

@@ -22,24 +22,24 @@ public abstract class ApiService<I extends ApiRequest, O extends ApiResponse> {
     public O execute(I apiInput) throws WalletException {
         Date startTime = new Date();
         logApi(getApiName() + ": " + ObjectUtils.getStringJSONWithoutNullValues(apiInput), true);
-        O apiOutput=null;
+        O apiOutput = null;
         try {
             apiOutput = callApi(apiInput);
         } finally {
             long totalTime = new Date().getTime() - startTime.getTime();
-            logApi(getApiName() + ": " + logApiMessage(apiInput,apiOutput), false);
+            logApi(getApiName() + ": " + logApiMessage(apiInput, apiOutput), false);
             logger.info("Total time= " + totalTime + "ms.");
         }
 
         return apiOutput;
     }
 
-    protected String logApiMessage(I apiInput, O apiOutput){
-        StringBuilder st=new StringBuilder();
-        if(apiInput instanceof ApiRequest){
+    protected String logApiMessage(I apiInput, O apiOutput) {
+        StringBuilder st = new StringBuilder();
+        if (apiInput instanceof ApiRequest) {
             st.append(ObjectUtils.getStringJSONWithoutNullValues((apiInput)));
         }
-        if(apiOutput instanceof ApiResponse){
+        if (apiOutput instanceof ApiResponse) {
             st.append("|");
             st.append(ObjectUtils.getStringJSONWithoutNullValues((apiOutput)));
         }
@@ -47,7 +47,7 @@ public abstract class ApiService<I extends ApiRequest, O extends ApiResponse> {
     }
 
 
-    protected void logApi(String logMessage,boolean isInput){
+    protected void logApi(String logMessage, boolean isInput) {
         StringBuilder sb = new StringBuilder("WALLETAPI ");
         sb.append(isInput ? " API_IN:" : " API_OUT:");
         sb.append(logMessage);

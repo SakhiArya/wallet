@@ -32,15 +32,15 @@ public class WalletExcpetionHandler {
     @ResponseStatus(value = BAD_REQUEST)
     public WalletApiResponse illegalInputException(WalletException ex) {
 
-        log.error("WalletException "+ ex.getMessage());
+        log.error("WalletException " + ex.getMessage());
 
-        return ResponseUtils.failResponse(null!=ex.getErrorCode()
-                ?ex.getErrorCode()
-                :ErrorCode.WALLET_EXCEPTION,
+        return ResponseUtils.failResponse(null != ex.getErrorCode()
+                ? ex.getErrorCode()
+                : ErrorCode.WALLET_EXCEPTION,
 
-            null!=ex.getErrorMessage()
-                ?ex.getErrorMessage()
-                :ErrorCode.WALLET_EXCEPTION.getDescription());
+            null != ex.getErrorMessage()
+                ? ex.getErrorMessage()
+                : ErrorCode.WALLET_EXCEPTION.getDescription());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -48,9 +48,9 @@ public class WalletExcpetionHandler {
     @ResponseBody
     public WalletApiResponse handleInvalidInputException(HttpServletRequest request,
         Exception e) {
-        log.error("handleInvalidInputException "+e.getMessage());
+        log.error("handleInvalidInputException " + e.getMessage());
         return ResponseUtils
-            .failResponse(ErrorCode.INVALID_INPUT ,null!= e.getCause().getMessage()
+            .failResponse(ErrorCode.INVALID_INPUT, null != e.getCause().getMessage()
                 ? e.getCause().getMessage() : "no cause found");
     }
 
@@ -59,21 +59,21 @@ public class WalletExcpetionHandler {
     @ResponseBody
     public WalletApiResponse handleDataIntegrityException(HttpServletRequest request,
         Exception e) {
-        log.error("handleDataIntegrityException "+e.getMessage());
+        log.error("handleDataIntegrityException " + e.getMessage());
         return ResponseUtils.failResponse(ErrorCode.SQL_EXCEPTION,
-            ErrorCode.SQL_EXCEPTION.getDescription() + " " + null!= e.getCause().getMessage()
-                ?e.getCause().getCause().getMessage() :"no cause found");
+            ErrorCode.SQL_EXCEPTION.getDescription() + " " + null != e.getCause().getMessage()
+                ? e.getCause().getCause().getMessage() : "no cause found");
     }
 
     @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public WalletApiResponse methodArgumentNotValidException(MethodArgumentNotValidException e) {
-        log.error("methodArgumentNotValidException "+e.getMessage());
+        log.error("methodArgumentNotValidException " + e.getMessage());
         BindingResult result = e.getBindingResult();
         FieldError fieldError = result.getFieldErrors().get(0);
         return ResponseUtils.failResponse(ErrorCode.INVALID_INPUT,
-            fieldError.getField() + " " +fieldError.getDefaultMessage());
+            fieldError.getField() + " " + fieldError.getDefaultMessage());
     }
 
 
@@ -82,7 +82,7 @@ public class WalletExcpetionHandler {
     @ResponseBody
     public WalletApiResponse handleException(HttpServletRequest request,
         Exception e) {
-        log.error("Exception occured ",e);
+        log.error("Exception occured ", e);
         return ResponseUtils.failResponse(ErrorCode.WALLET_EXCEPTION,
             "Internal Exception occured");
     }
